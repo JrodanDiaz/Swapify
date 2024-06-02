@@ -1,32 +1,32 @@
-import { FormItem } from "../_types/types";
+import { FormInput } from "../_types/types";
 import { FormData_t } from "../_types/types";
 
-const emailFormInput: FormItem = {
+const emailFormInput: FormInput = {
   label: "Email Address",
   type: "text",
   id: "email",
   placeholder: "Enter email",
 };
 
-const usernameFormInput: FormItem = {
+const usernameFormInput: FormInput = {
   label: "Username",
   type: "text",
   id: "username",
   placeholder: "Enter username",
 };
 
-const passwordFormInput: FormItem = {
+const passwordFormInput: FormInput = {
   label: "Password",
   type: "text",
   id: "password",
   placeholder: "Enter password",
 };
 
-export const registerFormItems: FormItem[] = [
+export const registerFormInputs: FormInput[] = [
   emailFormInput,
   passwordFormInput,
 ];
-export const loginFormItems: FormItem[] = [
+export const loginFormInputs: FormInput[] = [
   usernameFormInput,
   passwordFormInput,
 ];

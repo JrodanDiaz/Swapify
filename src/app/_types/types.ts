@@ -1,4 +1,4 @@
-export type FormItem = {
+export type FormInput = {
   label: string;
   type: string;
   id: string;

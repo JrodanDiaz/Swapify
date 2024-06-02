@@ -1,18 +1,18 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { FormItem } from "../_types/types";
+import { FormInput } from "../_types/types";
 import { FormData_t } from "../_types/types";
 import Image from "next/image";
 
 interface RegisterFormProps {
   formData: FormData_t;
-  formItems: FormItem[];
+  FormInputs: FormInput[];
   footer?: React.ReactNode;
 }
 
 export default function RegisterForm({
   formData,
-  formItems,
+  FormInputs,
   footer,
 }: RegisterFormProps) {
   const router = useRouter();
@@ -33,7 +33,7 @@ export default function RegisterForm({
             {formData.title}
           </h2>
           <div className="flex flex-col w-full animate-fadeIn">
-            {formItems.map((item) => (
+            {FormInputs.map((item) => (
               <>
                 <label htmlFor={item.id} className="font-semibold">
                   {item.label}

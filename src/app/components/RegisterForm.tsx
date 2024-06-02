@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { FormItem } from "../_types/types";
 import { FormData_t } from "../_types/types";
+import Image from "next/image";
 
 interface RegisterFormProps {
   formData: FormData_t;
@@ -26,7 +27,7 @@ export default function RegisterForm({
             onClick={closeModal}
             className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
           >
-            Exit
+            <Image src="/x.svg" alt="exit" width={24} height={24} />
           </button>
           <h2 className=" font-bold text-3xl animate-fadeIn">
             {formData.title}

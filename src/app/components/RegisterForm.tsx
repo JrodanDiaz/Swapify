@@ -20,9 +20,15 @@ export default function RegisterForm({
   };
   return (
     <>
-      <div className="  h-[420px] max-w-sm w-full p-4 bg-white rounded-md shadow-lg border-black border-[1px] flex flex-col items-center justify-evenly">
-        <h2 className=" font-bold text-3xl">{formData.title}</h2>
-        <div className="flex flex-col">
+      <div className=" relative h-[420px] max-w-sm w-full p-4 bg-white rounded-md shadow-lg border-black border-[1px] flex flex-col items-center justify-evenly">
+        <button
+          onClick={closeModal}
+          className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+        >
+          Exit
+        </button>
+        <h2 className=" font-bold text-3xl animate-fadeIn">{formData.title}</h2>
+        <div className="flex flex-col animate-fadeIn">
           {formItems.map((item) => (
             <>
               <label htmlFor={item.id} className="font-semibold">
@@ -38,7 +44,7 @@ export default function RegisterForm({
             </>
           ))}
         </div>
-        <div>
+        <div className="animate-fadeIn">
           <button
             type="submit"
             className=" bg-main-pink text-white px-4 py-2 rounded-sm"
@@ -46,12 +52,6 @@ export default function RegisterForm({
             {formData.button}
           </button>
         </div>
-        <button
-          onClick={closeModal}
-          className=" bg-main-lightblack text-white px-4 py-2 rounded-sm"
-        >
-          Close Modal
-        </button>
         {footer}
       </div>
     </>

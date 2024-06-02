@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function RegisterFooter() {
   return (
     <>
-      <div className="text-center text-xs">
+      <div className="text-center text-xs animate-fadeIn">
         <p className=" text-sm mb-2">
           Already have an account?{" "}
           <Link href="/login" className="font-semibold underline">

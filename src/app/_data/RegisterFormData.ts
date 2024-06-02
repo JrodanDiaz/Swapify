@@ -37,6 +37,6 @@ export const registerFormData: FormData_t = {
 };
 
 export const loginFormData: FormData_t = {
-  title: "Login Now",
+  title: "Welcome Back",
   button: "Login",
 };

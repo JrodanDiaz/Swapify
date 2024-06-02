@@ -1,39 +1,32 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FormItem } from "../_types/types";
 
-export default function RegisterForm() {
+export default function RegisterForm({ formItems }: { formItems: FormItem[] }) {
   const router = useRouter();
   const closeModal = () => {
     router.back();
   };
   return (
     <>
-      <div className="  h-[380px] max-w-sm w-full p-2 bg-white rounded-md shadow-lg border-black border-[1px] flex flex-col items-center justify-evenly">
+      <div className="  h-[420px] max-w-sm w-full p-4 bg-white rounded-md shadow-lg border-black border-[1px] flex flex-col items-center justify-evenly">
         <h2 className=" font-bold text-3xl">Start Bartering</h2>
         <div className="flex flex-col">
-          <label htmlFor="email" className="font-semibold">
-            Email Address
-          </label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            placeholder="Enter E-mail"
-            className="border-black border-[1px] px-2 py-1"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="password" className="font-semibold">
-            Password
-          </label>
-          <input
-            type="text"
-            name="password"
-            id="password"
-            placeholder="Enter Password"
-            className="border-black border-[1px] px-2 py-1"
-          />
+          {formItems.map((item) => (
+            <>
+              <label htmlFor={item.id} className="font-semibold">
+                {item.label}
+              </label>
+              <input
+                type={item.type}
+                id={item.id}
+                name={item.id}
+                placeholder={item.placeholder}
+                className="border-black border-[1px] px-2 py-1 mb-3"
+              />
+            </>
+          ))}
         </div>
         <div>
           <button
@@ -50,12 +43,15 @@ export default function RegisterForm() {
           Close Modal
         </button>
         <div className="text-center text-xs">
+          <p className=" text-sm mb-2">
+            Already have an account?{" "}
+            <Link href="/login" className="font-semibold underline">
+              Log in
+            </Link>
+          </p>
           <p>
             By creating an account, I accept Swapify's{" "}
-            <Link
-              href="/terms-of-service"
-              className="font-semibold text-blue-600"
-            >
+            <Link href="/terms-of-service" className="font-semibold">
               Terms of Service
             </Link>
           </p>

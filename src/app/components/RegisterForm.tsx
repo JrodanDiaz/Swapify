@@ -1,9 +1,19 @@
 "use client";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormItem } from "../_types/types";
+import { FormData_t } from "../_types/types";
 
-export default function RegisterForm({ formItems }: { formItems: FormItem[] }) {
+interface RegisterFormProps {
+  formData: FormData_t;
+  formItems: FormItem[];
+  footer?: React.ReactNode;
+}
+
+export default function RegisterForm({
+  formData,
+  formItems,
+  footer,
+}: RegisterFormProps) {
   const router = useRouter();
   const closeModal = () => {
     router.back();
@@ -11,7 +21,7 @@ export default function RegisterForm({ formItems }: { formItems: FormItem[] }) {
   return (
     <>
       <div className="  h-[420px] max-w-sm w-full p-4 bg-white rounded-md shadow-lg border-black border-[1px] flex flex-col items-center justify-evenly">
-        <h2 className=" font-bold text-3xl">Start Bartering</h2>
+        <h2 className=" font-bold text-3xl">{formData.title}</h2>
         <div className="flex flex-col">
           {formItems.map((item) => (
             <>
@@ -33,7 +43,7 @@ export default function RegisterForm({ formItems }: { formItems: FormItem[] }) {
             type="submit"
             className=" bg-main-pink text-white px-4 py-2 rounded-sm"
           >
-            Create Account
+            {formData.button}
           </button>
         </div>
         <button
@@ -42,20 +52,7 @@ export default function RegisterForm({ formItems }: { formItems: FormItem[] }) {
         >
           Close Modal
         </button>
-        <div className="text-center text-xs">
-          <p className=" text-sm mb-2">
-            Already have an account?{" "}
-            <Link href="/login" className="font-semibold underline">
-              Log in
-            </Link>
-          </p>
-          <p>
-            By creating an account, I accept Swapify's{" "}
-            <Link href="/terms-of-service" className="font-semibold">
-              Terms of Service
-            </Link>
-          </p>
-        </div>
+        {footer}
       </div>
     </>
   );

@@ -1,10 +1,10 @@
-import SignupForm from "../components/auth/SignupForm";
+import LoginForm from "../components/auth/LoginForm";
 
-export default function Signup() {
+export default function Login() {
   return (
     <>
       <div className="w-screen h-screen flex justify-center items-center">
-        <SignupForm />
+        <LoginForm />
       </div>
     </>
   );

@@ -10,15 +10,12 @@ interface RegisterFormProps {
   footer?: React.ReactNode;
 }
 
-export default function RegisterForm({
-  formData,
-  FormInputs,
-  footer,
-}: RegisterFormProps) {
+const RegisterForm = ({ formData, FormInputs, footer }: RegisterFormProps) => {
   const router = useRouter();
   const closeModal = () => {
     router.back();
   };
+
   return (
     <>
       <div className=" relative h-[420px] max-w-sm w-full p-1 bg-white rounded-md shadow-lg border-black border-[1px] flex flex-col items-center justify-evenly">
@@ -61,4 +58,6 @@ export default function RegisterForm({
       </div>
     </>
   );
-}
+};
+
+export default RegisterForm;

@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { FormInput } from "../_types/types";
 import { FormData_t } from "../_types/types";
 import Image from "next/image";
+import CornerButton from "./CornerButton";
 
 interface RegisterFormProps {
   formData: FormData_t;
@@ -20,12 +21,13 @@ const RegisterForm = ({ formData, FormInputs, footer }: RegisterFormProps) => {
     <>
       <div className=" relative h-[420px] max-w-sm w-full p-1 bg-white rounded-md shadow-lg border-black border-[1px] flex flex-col items-center justify-evenly">
         <div className="border-black-600 w-5/6 h-5/6 flex flex-col  justify-evenly animate-fadeIn">
-          <button
+          <CornerButton
+            icon="/x.svg"
             onClick={closeModal}
-            className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-          >
-            <Image src="/x.svg" alt="exit" width={24} height={24} />
-          </button>
+            size={24}
+            alt="Exit button"
+            topRight={true}
+          />
           <h2 className=" font-bold text-3xl animate-fadeIn">
             {formData.title}
           </h2>

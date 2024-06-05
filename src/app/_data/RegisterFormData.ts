@@ -17,7 +17,7 @@ const usernameFormInput: FormInput = {
 
 const passwordFormInput: FormInput = {
   label: "Password",
-  type: "text",
+  type: "password",
   id: "password",
   placeholder: "Enter password",
 };
@@ -27,6 +27,7 @@ export const registerFormInputs: FormInput[] = [
   usernameFormInput,
   passwordFormInput,
 ];
+
 export const loginFormInputs: FormInput[] = [
   usernameFormInput,
   passwordFormInput,

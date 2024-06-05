@@ -7,6 +7,7 @@ import RegisterFooter from "./RegisterFooter";
 export default function SignupForm() {
   return (
     <RegisterForm
+      mode="register"
       serverAction={registerServerAction}
       formData={registerFormData}
       FormInputs={registerFormInputs}

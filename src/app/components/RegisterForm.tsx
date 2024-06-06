@@ -95,7 +95,7 @@ const RegisterForm = ({
             </div>
             <div className="animate-fadeIn w-full">
               <button
-                type="submit"
+                type={inputsAreFilled() ? "submit" : "button"}
                 className={`${
                   inputsAreFilled()
                     ? "bg-main-lightblack text-white transition-colors duration-400"

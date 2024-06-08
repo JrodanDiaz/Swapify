@@ -21,6 +21,12 @@ export type RegisterInputs = {
 
 export type RegisterBody = z.infer<typeof registerBodySchema>;
 
+export type InputsEdited = {
+  email: false;
+  username: false;
+  password: false;
+};
+
 export type ServerResponse = {
   success: boolean;
   message: string;

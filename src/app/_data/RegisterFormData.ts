@@ -15,6 +15,13 @@ const usernameFormInput: FormInput = {
   placeholder: "Enter username",
 };
 
+const locationFormInput: FormInput = {
+  label: "Location",
+  type: "text",
+  id: "location",
+  placeholder: "Enter Location",
+};
+
 const passwordFormInput: FormInput = {
   label: "Password",
   type: "password",
@@ -25,6 +32,7 @@ const passwordFormInput: FormInput = {
 export const registerFormInputs: FormInput[] = [
   emailFormInput,
   usernameFormInput,
+  locationFormInput,
   passwordFormInput,
 ];
 

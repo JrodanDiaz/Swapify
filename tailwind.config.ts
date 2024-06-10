@@ -9,6 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
+        "landing-gradient": "linear-gradient(180deg, hsla(288, 20%, 75%, 1) 0%, hsla(274, 18%, 92%, 1) 30%)",
+        "landing-gradient-2": "linear-gradient(180deg, hsla(274, 18%, 92%, 1) 19%, hsla(15, 100%, 82%, 1) 62%)",
+        "landing-fade-left": "linear-gradient(to left, rgba(255,255,255,0), #ECE8EF)",
+        "landing-fade-right": "linear-gradient(to right, rgba(255,255,255,0), #ECE8EF)",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
@@ -20,6 +24,7 @@ const config: Config = {
         "main-pink": "#D34F73",
         "main-black": "#040F16",
         "main-lightblack": "#0A100D",
+        "test" : "#FF0000",
       },
       keyframes: {
         fadeIn: {
@@ -30,16 +35,23 @@ const config: Config = {
           "0%": { backgroundPosition: "200% 0" },
           "100%": { backgroundPosition: "-200% 0" },
         },
+        slide: {
+            '0%': { transform: 'translateX(0)' },
+            '100%': { transform: 'translateX(-100%)' },
+        }
       },
       animation: {
         fadeIn: "fadeIn 0.4s ease-in forwards",
         shimmer: "shimmer 1.5s infinite linear",
+        slide: "slide 15s infinite linear"
       },
       backgroundSize: {
         "200%": "200% 100%",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 };
 export default config;

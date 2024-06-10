@@ -26,6 +26,7 @@ export const registerFormInputs: FormInput[] = [
   emailFormInput,
   passwordFormInput,
 ];
+
 export const loginFormInputs: FormInput[] = [
   usernameFormInput,
   passwordFormInput,

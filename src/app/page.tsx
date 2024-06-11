@@ -7,16 +7,17 @@ import Slider from "./components/landingPage/Slider";
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-landing-gradient-test">
 
-      <div className="bg-landing-gradient min-h-[100vh]">
-        <Navbar></Navbar>
-        <Hero></Hero>
+      <div className="">
+        {/* <button className="absolute right-0 text-white bg-main-black min-h-[40px] w-full max-w-[125px] border border-black border-1">Dark Mode</button> */}
+        <Navbar/>
+        <Hero/>
       </div>
       
-      <div className="bg-landing-gradient-2">
-        <Slider></Slider>
-        <ShoppingCategories></ShoppingCategories>
+      <div className="">
+        <Slider/>
+        <ShoppingCategories/>
       </div>
 
     </div>

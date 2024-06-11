@@ -4,7 +4,7 @@ const ShoppingCategories = () => {
     return (
         <div>
 
-            <div className="pt-[7em]">
+            <div className="pt-20">
                 <h1 className="text-3xl text-center">Some Sort of Text Here</h1>
             </div>
 

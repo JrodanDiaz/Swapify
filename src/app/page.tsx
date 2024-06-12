@@ -1,25 +1,29 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/Navbar"
 import Hero from "./components/landingPage/Hero"
 import ShoppingCategories from "./components/landingPage/ShoppingCategories";
 import Slider from "./components/landingPage/Slider";
+import Footer from "./components/landingPage/Footer";
+import React, {useState} from "react"
+
+export const Context = React.createContext(null)
 
 export default function Home() {
+
+  const [darkMode, setDarkMode] = useState<boolean>(false)
+
   return (
-    <div className="bg-landing-gradient-test">
-
-      <div className="">
-        {/* <button className="absolute right-0 text-white bg-main-black min-h-[40px] w-full max-w-[125px] border border-black border-1">Dark Mode</button> */}
-        <Navbar/>
-        <Hero/>
+    <Context.Provider value={[darkMode, setDarkMode]}>
+      <div className={`animate-fadeIn ${darkMode ? 'bg-landing-gradient-dark-2' : 'bg-landing-gradient-test'}`}>
+          <Navbar/>
+          <Hero/>
+          <Slider/>
+          <ShoppingCategories/>
+          <Footer/>
       </div>
-      
-      <div className="">
-        <Slider/>
-        <ShoppingCategories/>
-      </div>
-
-    </div>
+    </Context.Provider>
   );
 }
+

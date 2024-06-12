@@ -1,19 +1,25 @@
+import {useContext} from 'react'
+import {Context} from "../../page"
+
 
 const Slider = () => {
+
+    const [darkMode, setDarkMode] = useContext<boolean>(Context)
+
     return (
         <div className="pt-10">
 
             <div className="relative flex flex-row overflow-hidden">
 
-                <div className="bg-landing-fade-left absolute left-0 h-full min-w-[300px] z-50">
+                <div className={`absolute left-0 h-full min-w-[300px] z-30 transition-colors duration-500 ease-in-out ${darkMode ? "bg-landing-fade-left-dark" : "bg-landing-fade-left"}`}>
 
                 </div>
 
-                <div className="bg-landing-fade-right absolute right-0 h-full min-w-[300px] z-50">
+                <div className={`absolute right-0 h-full min-w-[300px] z-30 transition-colors duration-500 ease-in-out ${darkMode ? "bg-landing-fade-right-dark" : "bg-landing-fade-right"}`}>
 
                 </div>
 
-                <div className="whitespace-nowrap flex min-w-full min-h-10 justify-around items-center text-center animate-slide border border-t-1 border-l-0 border-r-0 border-b-1 border-black">
+                <div className={`whitespace-nowrap flex min-w-full min-h-10 justify-around items-center text-center animate-slide border border-t-1 border-l-0 border-r-0 border-b-1 border-black ${darkMode ? "text-white" : null}`}>
                     <p>Swap Shoes</p>
                     <p>Swap Pants</p>
                     <p>Swap Shirts</p>
@@ -24,7 +30,7 @@ const Slider = () => {
                     <p>Swap Glasses</p>
                 </div>
 
-                <div className="whitespace-nowrap flex min-w-full min-h-10 justify-around items-center text-center animate-slide border border-t-1 border-b-1 border-l-0 border-r-0 border-black">
+                <div className={`whitespace-nowrap flex min-w-full min-h-10 justify-around items-center text-center animate-slide border border-t-1 border-l-0 border-r-0 border-b-1 border-black ${darkMode ? "text-white" : null}`}>
                     <p>Swap Shoes</p>
                     <p>Swap Pants</p>
                     <p>Swap Shirts</p>

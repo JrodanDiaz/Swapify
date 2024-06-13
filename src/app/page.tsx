@@ -8,10 +8,9 @@ import Slider from "./components/landingPage/Slider";
 import Footer from "./components/landingPage/Footer";
 import React, {useState} from "react"
 
-export const Context = React.createContext(null)
+export const Context = React.createContext(false)
 
 export default function Home() {
-
   const [darkMode, setDarkMode] = useState<boolean>(false)
 
   return (
@@ -26,4 +25,5 @@ export default function Home() {
     </Context.Provider>
   );
 }
+
 

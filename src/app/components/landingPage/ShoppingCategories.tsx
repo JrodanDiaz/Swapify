@@ -50,26 +50,7 @@ const ShoppingCategories = () => {
                     </div>
 
                 </div>
-
-                {/* <div className="relative w-full max-w-[400px]">
-                            <Image className="aspect-w-10 asepct-h-8" src="/pants.jpg" alt="exit" layout="fill" objectFit="cover"/>
-                    </div>
-
-                    <div className="relative w-full max-w-[400px] aspect-w-10 asepct-h-8">
-                        <Image src="/shirts.jpg" alt="exit" layout="fill" objectFit="cover"/>
-                </div> */}
-
-                {/* <div className="flex flex-row w-full min-h-[500px] gap-10 justify-center align-center">
-
-                    <div className="relative w-full max-w-[400px] aspect-w-10 asepct-h-8">
-                        <Image src="/sunglasses.jpg" alt="exit" layout="fill" objectFit="cover"/>
-                    </div>
-
-                    <div className="relative w-full max-w-[400px] aspect-w-10 asepct-h-8">
-                        <Image src="/shoes.jpg" alt="exit" layout="fill" objectFit="cover"/>
-                    </div>
-                </div> */}
-
+                
             </div>
 
         </div>

@@ -19,7 +19,7 @@ const Slider = () => {
 
                 </div>
 
-                <div className={`whitespace-nowrap flex min-w-full min-h-10 justify-around items-center text-center animate-slide border border-t-1 border-l-0 border-r-0 border-b-1 border-black ${darkMode ? "text-white" : null}`}>
+                <div className={`whitespace-nowrap flex gap-2 min-w-full min-h-10 justify-around items-center text-center animate-slide border border-t-1 border-l-0 border-r-0 border-b-1 border-black ${darkMode ? "text-white" : null}`}>
                     <p>Swap Shoes</p>
                     <p>Swap Pants</p>
                     <p>Swap Shirts</p>

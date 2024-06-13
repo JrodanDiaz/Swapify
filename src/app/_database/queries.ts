@@ -36,3 +36,18 @@ export const getTable = async () => {
     console.log(err);
   }
 };
+
+export const userAlreadyExist =  async (userName: string) => {
+  try {
+    const res = await pool.query(
+      "SELECT * FROM users WHERE username = $1", 
+      [userName]
+    )
+    
+    return res.rows.length > 0
+  }
+
+  catch(err) {
+    console.log(err)
+  }
+}

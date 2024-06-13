@@ -43,7 +43,7 @@ export const userAlreadyExist =  async (userName: string) => {
       "SELECT * FROM users WHERE username = $1", 
       [userName]
     )
-    
+
     return res.rows.length > 0
   }
 

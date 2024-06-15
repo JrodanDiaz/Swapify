@@ -15,7 +15,7 @@ const ShoppingCategories = () => {
 
             <div className="flex flex-col gap-10 pt-[5em]">
 
-                <div className="flex flex-row w-full h-[500px] min-h-[500px] justify-center items-center">
+                <div className="flex flex-row w-full h-[500px] min-h-[500px] justify-center items-center gap-5">
 
                     <div className={`flex flex-col w-[35%] justify-center items-center gap-3 whitespace-nowrap`}>
                         <div className="relative w-full max-w-[350px] h-[450px] max-h-[450px]">
@@ -33,7 +33,7 @@ const ShoppingCategories = () => {
 
                 </div>
 
-                <div className="flex flex-row w-full h-[500px] min-h-[500px] justify-center items-center">
+                <div className="flex flex-row w-full h-[500px] min-h-[500px] justify-center items-center gap-5">
 
                     <div className="flex flex-col w-[35%] justify-center items-center gap-3 whitespace-nowrap">
                         <div className="relative w-full max-w-[350px] h-[450px] max-h-[450px]">

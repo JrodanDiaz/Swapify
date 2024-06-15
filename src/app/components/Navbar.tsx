@@ -14,7 +14,7 @@ const Navbar = () => {
     
     return (
         
-        <nav className="flex flex-row w-full items-center p-4 border border-black border-b-1 fixed z-50 bg-transparent bg-opacity-50 backdrop-blur-sm">
+        <nav className="flex flex-row w-full items-center p-4 border border-black border-b-1 fixed z-50 bg-transparent bg-opacity-50 backdrop-blur-sm h-[70px]">
 
             <div className="">
                 <h1 className={`text-3xl font-bold transition-colors duration-500 ease-in-out ${darkMode ? 'text-white' : 'text-main-pink'}`}>Swapify</h1>
@@ -31,17 +31,19 @@ const Navbar = () => {
             
             {darkMode ? (
                     <div className="flex flex-row-reverse w-full gap-10 items-center justify-center">
-                        <Image src="/shopping-cart-dark.svg" height="300" width="30" alt="exit"></Image>
-                        <Image src="/shopping-bag-dark.svg" height="300" width="30" alt="exit"></Image>
-                        <Image src="/user-dark.svg" height="300" width="30" alt="exit"></Image>
-                        <button onClick={toggleDarkMode} className={`min-h-full w-full max-w-[125px] border border-black border-[2px] font-bold px-2 py-1 transition-colors duration-500 ease-in-out ${darkMode ? "bg-white text-black" : "bg-black text-white"}`}>Light Mode</button>
+                        <Image className="cursor-pointer" src="/shopping-cart-dark.svg" height="300" width="30" alt="shopping cart"></Image>
+                        <Image className="cursor-pointer" src="/shopping-bag-dark.svg" height="300" width="30" alt="shopping bag"></Image>
+                        <Image className="cursor-pointer" src="/user-dark.svg" height="300" width="30" alt="user"></Image>
+                        <Image onClick={toggleDarkMode} className="cursor-pointer" src="/moon.svg" height="300" width="30" alt="user"></Image>
+                        {/* <button onClick={toggleDarkMode} className={`min-h-full w-full max-w-[125px] border border-black border-[2px] font-bold px-2 py-1 transition-colors duration-500 ease-in-out ${darkMode ? "bg-white text-black" : "bg-black text-white"}`}>Light Mode</button> */}
                     </div>
                 ) : (
                     <div className="flex flex-row-reverse w-full gap-10 items-center justify-center">
-                        <Image src="/shopping-cart.svg" height="300" width="30" alt="exit"></Image>
-                        <Image src="/shopping-bag.svg" height="300" width="30" alt="exit"></Image>
-                        <Image src="/user.svg" height="300" width="30" alt="exit"></Image>
-                        <button onClick={toggleDarkMode} className={`min-h-full w-full max-w-[125px] border border-black border-[2px] font-bold px-2 py-1 transition-colors duration-500 ease-in-out ${darkMode ? "bg-white text-black" : "bg-black text-white"}`}>Dark Mode</button>
+                        <Image className="cursor-pointer"src="/shopping-cart.svg" height="300" width="30" alt="shopping cart"></Image>
+                        <Image className="cursor-pointer" src="/shopping-bag.svg" height="300" width="30" alt="shopping bag"></Image>
+                        <Image className="cursor-pointer" src="/user.svg" height="300" width="30" alt="user"></Image>
+                        <Image onClick={toggleDarkMode} className="cursor-pointer" src="/sun.svg" height="300" width="30" alt="user"></Image>
+                        {/* <button onClick={toggleDarkMode} className={`min-h-full w-full max-w-[125px] border border-black border-[2px] font-bold px-2 py-1 transition-colors duration-500 ease-in-out ${darkMode ? "bg-white text-black" : "bg-black text-white"}`}>Dark Mode</button> */}
                     </div>
                 )}
         </nav>

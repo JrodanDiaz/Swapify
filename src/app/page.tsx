@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "./components/Navbar"
 import Hero from "./components/landingPage/Hero"
 import ShoppingCategories from "./components/landingPage/ShoppingCategories";
+import ShoppingTest from "./components/landingPage/ShoppingTest";
 import Slider from "./components/landingPage/Slider";
 import Footer from "./components/landingPage/Footer";
 import React, {useState} from "react"
@@ -15,11 +16,11 @@ export default function Home() {
 
   return (
     <Context.Provider value={[darkMode, setDarkMode]}>
-      <div className={`animate-fadeIn ${darkMode ? 'bg-landing-gradient-dark-2' : 'bg-landing-gradient-test'}`}>
+      <div className={`relative flex flex-col animate-fadeIn ${darkMode ? 'bg-landing-gradient-dark-2' : 'bg-landing-gradient-test'}`}>
           <Navbar/>
           <Hero/>
           <Slider/>
-          <ShoppingCategories/>
+          <ShoppingTest/>
           <Footer/>
       </div>
     </Context.Provider>

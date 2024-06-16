@@ -1,58 +1,43 @@
 import Image from "next/image"
 import {useContext} from 'react'
 import {Context} from "../../page"
+import CategoryCard from "./CategoryCard"
 
 const ShoppingCategories = () => {
 
     const [darkMode, setDarkMode] = useContext<boolean>(Context)
 
     return (
-        <div className="pb-10">
+        <div className="pb-10 overflow-hidden">
 
-            <div className="pt-20">
-                <h1 className={`text-3xl text-center font-bold transition-colors duration-300 ease-in-out ${darkMode ? "text-white" : null}`}>Swap Now</h1>
-            </div>
 
-            <div className="flex flex-col gap-10 pt-[5em]">
+            <div className="flex flex-col gap-8 sm:gap-20 sm:block">
 
-                <div className="flex flex-row w-full h-[500px] min-h-[500px] justify-center items-center gap-5">
+                <div className="pt-16 sm:pt-20">
+                    <h1 className={`text-3xl text-center font-bold transition-colors duration-300 ease-in-out ${darkMode ? "text-white" : null}`}>Swap Now</h1>
+                </div>
 
-                    <div className={`flex flex-col w-[35%] justify-center items-center gap-3 whitespace-nowrap`}>
-                        <div className="relative w-full max-w-[350px] h-[450px] max-h-[450px]">
-                            <Image className={`border border-1 ${darkMode ? "border-bone-white shadow-landing-dark" : "border-black shadow-landing"}`} src="/pants.jpg" alt="exit" layout="fill" objectFit="cover"/>
-                        </div>
-                        <p className={`text-lg font-bold transition-colors duration-500 ease-in-out z-10 ${darkMode ? "text-white" : null}`}>Popular Pants</p>
+                <div className="flex flex-col gap-24 sm:gap-10 sm:pt-[5em]">
+
+                    <div className="flex-col gap-24 sm:flex sm:flex-row w-full h-[200px] sm:h-[500px] sm:min-h-[500px] justify-center items-center sm:gap-5">
+                        <CategoryCard pic="/pants.jpg" title="Popular Pants"/>
+                        <CategoryCard pic="/shirts.jpg" title="Somewhat Decent Shirts"/>
+                        <span className="sm:hidden">
+                            <CategoryCard pic="/sunglasses.jpg" title="Alt Accessories"/>
+                            <CategoryCard pic="/shoes.jpg" title="Sigma Shoes"/>
+                        </span>
                     </div>
 
-                    <div className="flex flex-col w-[35%] justify-center items-center gap-3 whitespace-nowrap">
-                        <div className="relative w-full max-w-[350px] h-[450px] max-h-[450px]">
-                            <Image className={`border border-1 ${darkMode ? "border-bone-white shadow-landing-dark" : "border-black shadow-landing"}`} src="/shirts.jpg" alt="exit" layout="fill" objectFit="cover"/>
-                        </div>
-                        <p className={`text-lg font-bold transition-colors duration-500 ease-in-out z-10 ${darkMode ? "text-white" : null}`}>Somewhat Decent Shirts</p>
+                    <div className="hidden sm:flex sm:flex-row w-full h-[500px] min-h-[500px] justify-center items-center gap-5">
+                        <CategoryCard pic="/sunglasses.jpg" title="Alt Accessories"/>
+                        <CategoryCard pic="/shoes.jpg" title="Sigma Shoes"/>
                     </div>
 
                 </div>
 
-                <div className="flex flex-row w-full h-[500px] min-h-[500px] justify-center items-center gap-5">
-
-                    <div className="flex flex-col w-[35%] justify-center items-center gap-3 whitespace-nowrap">
-                        <div className="relative w-full max-w-[350px] h-[450px] max-h-[450px]">
-                            <Image className={`border border-1 ${darkMode ? "border-bone-white shadow-landing-dark" : "border-black shadow-landing"}`} src="/sunglasses.jpg" alt="exit" layout="fill" objectFit="cover"/>
-                        </div>
-                        <p className={`text-lg font-bold transition-colors duration-500 ease-in-out z-10 ${darkMode ? "text-white" : null}`}>Alt Accessories</p>
-                    </div>
-
-                    <div className="flex flex-col w-[35%] justify-center items-center gap-3 whitespace-nowrap">
-                        <div className="relative w-full max-w-[350px] h-[450px] max-h-[450px]">
-                            <Image className={`border border-1 ${darkMode ? "border-bone-white shadow-landing-dark" : "border-black shadow-landing"}`} src="/shoes.jpg" alt="exit" layout="fill" objectFit="cover"/>
-                        </div>
-                        <p className={`text-lg font-bold transition-colors duration-500 ease-in-out z-10 ${darkMode ? "text-white" : null}`}>Sigma Shoes</p>
-                    </div>
-
-                </div>
-                
             </div>
 
+           
         </div>
     )
 }

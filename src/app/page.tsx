@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Hero from "./components/landingPage/Hero";
 import ShoppingCategories from "./components/landingPage/ShoppingCategories";

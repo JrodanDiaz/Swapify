@@ -2,9 +2,11 @@
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Sidebar from "../components/account/Sidebar";
+import { useUserContext } from "../_context/UserContext";
 import { useRef, useState } from "react";
 export default function AccountPage() {
-  const [username, setUsername] = useState("Joedan.0114");
+  const user = useUserContext();
+  const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState("1234");
   const [location, setLocation] = useState("Miramar");
 
@@ -49,68 +51,71 @@ export default function AccountPage() {
       <Navbar />
       <div className="pt-20 flex justify-around border-red-600 border-4">
         <Sidebar />
-        <div className="flex flex-col">
-          <label htmlFor="username" className="font-semibold">
-            Username
-          </label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            className="border-black border-[1px] px-3 py-2 mb-6"
-            value={username}
-            onChange={onInputChange}
-          />
-          <label htmlFor="location" className="font-semibold">
-            Location
-          </label>
-          <input
-            type="text"
-            name="location"
-            id="location"
-            className="border-black border-[1px] px-3 py-2 mb-6"
-            value={location}
-            onChange={onInputChange}
-          />
-          <label htmlFor="password" className="font-semibold">
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={onInputChange}
-            className="border-black border-[1px] px-3 py-2 mb-2"
-          />
-        </div>
-        <div className="flex flex-col items-center">
-          <div className="border-black border-2 w-[250px] h-[250px] mb-2 overflow-hidden rounded-full relative">
-            {selectedImage && (
-              <>
-                <Image
-                  src={selectedImage}
-                  layout="fill"
-                  objectFit="contain"
-                  alt="selected image"
-                />
-              </>
-            )}
+        <div className="border-blue-600 border-2 w-3/5 flex flex-wrap justify-around">
+          <div className="flex flex-col">
+            <label htmlFor="username" className="font-semibold">
+              Username
+            </label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              className="border-black border-[1px] px-3 py-2 mb-6"
+              value={username}
+              onChange={onInputChange}
+            />
+            <label htmlFor="location" className="font-semibold">
+              Location
+            </label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              className="border-black border-[1px] px-3 py-2 mb-6"
+              value={location}
+              onChange={onInputChange}
+            />
+            <label htmlFor="password" className="font-semibold">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={onInputChange}
+              className="border-black border-[1px] px-3 py-2 mb-2"
+            />
           </div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            ref={fileInputRef}
-            className="hidden"
-          />
-          <button
-            onClick={handleButtonClick}
-            className=" px-4 py-2 bg-black text-white rounded-full"
-          >
-            Change Profile Picture
-          </button>
+          <div className="flex flex-col items-center">
+            <div className="border-black border-2 w-[250px] h-[250px] mb-2 overflow-hidden rounded-full relative">
+              {selectedImage && (
+                <>
+                  <Image
+                    src={selectedImage}
+                    layout="fill"
+                    objectFit="contain"
+                    alt="selected image"
+                  />
+                </>
+              )}
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              ref={fileInputRef}
+              className="hidden"
+            />
+            <button
+              onClick={handleButtonClick}
+              className=" px-4 py-2 bg-black text-white rounded-full"
+            >
+              Change Profile Picture
+            </button>
+          </div>
         </div>
+
         {/* <div className="flex flex-col">
           <label htmlFor="username">Username</label>
           <input

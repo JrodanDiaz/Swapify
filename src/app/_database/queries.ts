@@ -51,3 +51,16 @@ export const userAlreadyExist =  async (userName: string) => {
     console.log(err)
   }
 }
+
+export const updateUserEmail = async (newEmail: string, userName: string, password: string) => {
+  try{
+    const res = await pool.query(
+      "UPDATE users SET email = $1 WHERE username = $2 AND password = $3", 
+      [newEmail, userName, password]
+    )
+  }
+
+  catch(error){
+    console.log(error)
+  }
+}

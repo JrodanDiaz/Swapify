@@ -1,7 +1,7 @@
 "use server";
 
 import { registerBodySchema } from "../_types/schemas";
-import { createTable, createUser, userAlreadyExist } from "../_database/queries";
+import { createTable, createUser, userAlreadyExist, updateUserEmail} from "../_database/queries";
 
 async function registerServerAction(state: any, formData: FormData) {
   const registerBody = registerBodySchema.safeParse({
@@ -24,12 +24,14 @@ async function registerServerAction(state: any, formData: FormData) {
   await createTable();
 
   if (await userAlreadyExist(registerBody.data.username)) {
+    updateUserEmail("test123", registerBody.data.username, registerBody.data.password)
     return { success: false, message: "not lovely"}
   }
 
   const res = await createUser(registerBody.data);
 
   return { success: true, message: "lovely" };
+
 }
 
 export default registerServerAction;

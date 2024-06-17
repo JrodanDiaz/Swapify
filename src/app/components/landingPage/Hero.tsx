@@ -1,11 +1,11 @@
 import Image from "next/image";
 import {useContext} from 'react'
-import {Context} from "../../page"
-
+import { UseDarkModeContext } from "../DarkModeContext";
 
 const Hero = () => {
 
-    const [darkMode, setDarkMode] = useContext<boolean>(Context)
+    const darkModeContext = UseDarkModeContext()
+    const {darkMode, setDarkMode} = darkModeContext
 
     return(
         <div className="flex flex-col-reverse sm:flex-row pt-[70px] sm:pt-[120px]">

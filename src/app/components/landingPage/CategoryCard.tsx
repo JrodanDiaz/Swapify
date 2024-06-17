@@ -1,11 +1,12 @@
 
 import Image from "next/image"
 import {useContext} from 'react'
-import {Context} from "../../page"
+import { UseDarkModeContext } from "../DarkModeContext"
 
 export default function CategoryCard(props : {pic : string, title : string}) {
 
-    const [darkMode, setDarkMode] = useContext<boolean>(Context)
+    const darkModeContext = UseDarkModeContext()
+    const {darkMode, setDarkMode} = darkModeContext
 
     return (
         // <div className={`py-8 flex flex-col w-full justify-center items-center gap-3 whitespace-nowrap sm:pt-0 sm:w-[35%] sm:min-w-[300px]`}>
@@ -19,7 +20,7 @@ export default function CategoryCard(props : {pic : string, title : string}) {
             <div className="relative h-full w-full">
                 <Image className={`border border-1 ${darkMode ? "border-bone-white shadow-landing-dark" : "border-black shadow-landing"}`} src={props.pic} alt="exit" layout="fill" objectFit="cover" objectPosition="50% 40%"/>
             </div>
-            <p className={`py-4 text-lg font-bold transition-colors duration-500 ease-in-out z-10 ${darkMode ? "text-white" : null}`}>{props.title}</p>
+            <p className={`relative py-4 text-lg font-bold transition-colors duration-500 ease-in-out z-10 ${darkMode ? "text-white" : null}`}>{props.title}</p>
         </div>
     )
 }

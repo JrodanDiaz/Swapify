@@ -1,9 +1,10 @@
 import {useContext} from 'react'
-import {Context} from "../../page"
+import { UseDarkModeContext } from '../DarkModeContext'
 
 export default function Footer() {
 
-    const [darkMode, setDarkMode] = useContext<boolean>(Context)
+    const darkModeContext = UseDarkModeContext()
+    const {darkMode, setDarkMode} = darkModeContext
 
     return (
         <div className={`flex relative items-center h-[300px] min-h-[300px] w-full border-y border-1 ${darkMode ? "border-bone-white" : "border-black"}`}>

@@ -1,10 +1,9 @@
-import {useContext} from 'react'
-import {Context} from "../../page"
-
+import { UseDarkModeContext } from '../DarkModeContext'
 
 const Slider = () => {
 
-    const [darkMode, setDarkMode] = useContext<boolean>(Context)
+    const darkModeContext = UseDarkModeContext()
+    const {darkMode, setDarkMode} = darkModeContext
 
     return (
         <div className="pt-10">

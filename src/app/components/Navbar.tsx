@@ -2,11 +2,12 @@
 
 import Image from "next/image"
 import {useContext} from 'react'
-import {Context} from "../page"
+import { UseDarkModeContext } from "./DarkModeContext"
 
 const Navbar = () => {
 
-    const [darkMode, setDarkMode] = useContext<boolean>(Context)
+    const darkModeContext = UseDarkModeContext()
+    const {darkMode, setDarkMode} = darkModeContext
 
     const toggleDarkMode = () => {
       setDarkMode(!darkMode)
@@ -25,8 +26,8 @@ const Navbar = () => {
             </div>
 
             <div className="min-h-full w-full relative flex justify-center"> 
-                <Image className="absolute left-[62px] top-2" src="/search.svg" height="20" width="20" alt="exit"></Image>
-                <input placeholder="Search" className="min-h-[35px] w-full max-w-[500px] min-w-[300px] text-center rounded-xl focus:outline-none border border-black border-1 bg-bone-white"></input>
+                <Image className="absolute left-2 top-2" src="/search.svg" height="20" width="20" alt="exit"></Image>
+                <input placeholder="Search" className="min-h-[35px] w-full min-w-[300px] text-center rounded-xl focus:outline-none border border-black border-1 bg-bone-white"></input>
             </div>
             
             {darkMode ? (

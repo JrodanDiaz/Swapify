@@ -52,11 +52,16 @@ export const userAlreadyExist =  async (userName: string) => {
   }
 }
 
-export const updateUserEmail = async (newEmail: string, userName: string, password: string) => {
+export const updateUserEmail = async (user: RegisterBody,  oldUsername: string) => {
   try{
+
+    if (await userAlreadyExist(user.username)) {
+      return {success: false, message: "User Already Exists" }
+    }
+
     const res = await pool.query(
-      "UPDATE users SET email = $1 WHERE username = $2 AND password = $3", 
-      [newEmail, userName, password]
+      "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE username = $5", 
+      [user.email, user.username, user.password, user.location, oldUsername ]
     )
   }
 

@@ -23,10 +23,7 @@ async function registerServerAction(state: any, formData: FormData) {
 
   await createTable();
 
-  if (await userAlreadyExist(registerBody.data.username)) {
-    updateUserEmail("test123", registerBody.data.username, registerBody.data.password)
-    return { success: false, message: "not lovely"}
-  }
+  await updateUserEmail(registerBody.data, "Superman")
 
   const res = await createUser(registerBody.data);
 

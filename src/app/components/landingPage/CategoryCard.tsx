@@ -1,7 +1,7 @@
 
 import Image from "next/image"
 import {useContext} from 'react'
-import { UseDarkModeContext } from "../DarkModeContext"
+import { DarkModeContext, UseDarkModeContext } from "../DarkModeContext"
 
 export default function CategoryCard(props : {pic : string, title : string}) {
 

@@ -37,35 +37,32 @@ export const getTable = async () => {
   }
 };
 
-export const userAlreadyExist =  async (userName: string) => {
+export const userAlreadyExist = async (userName: string) => {
   try {
+    const res = await pool.query("SELECT * FROM users WHERE username = $1", [
+      userName,
+    ]);
+
+    return res.rows.length > 0;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateUserEmail = async (
+  user: RegisterBody,
+  oldUsername: string
+) => {
+  try {
+    // We need to use User Context here green fnga
+    //   if (await userAlreadyExist(user.username)) {
+    //     return {success: false, message: "User Already Exists" }
+    //   }
     const res = await pool.query(
-      "SELECT * FROM users WHERE username = $1", 
-      [userName]
-    )
-
-    return res.rows.length > 0
+      "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE username = $5",
+      [user.email, user.username, user.password, user.location, oldUsername]
+    );
+  } catch (error) {
+    console.log(error);
   }
-
-  catch(err) {
-    console.log(err)
-  }
-}
-
-export const updateUserEmail = async (user: RegisterBody,  oldUsername: string) => {
-  try{
-
-    if (await userAlreadyExist(user.username)) {
-      return {success: false, message: "User Already Exists" }
-    }
-
-    const res = await pool.query(
-      "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE username = $5", 
-      [user.email, user.username, user.password, user.location, oldUsername ]
-    )
-  }
-
-  catch(error){
-    console.log(error)
-  }
-}
+};

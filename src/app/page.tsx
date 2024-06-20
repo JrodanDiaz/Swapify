@@ -7,15 +7,16 @@ import ShoppingCategories from "./components/landingPage/ShoppingCategories";
 import ShoppingTest from "./components/landingPage/ShoppingTest";
 import Slider from "./components/landingPage/Slider";
 import Footer from "./components/landingPage/Footer";
-import { DarkModeContext } from "./components/DarkModeContext";
+import { UseDarkModeContext } from "./components/DarkModeContext";
 import {useState} from "react"
 
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState<boolean>(false)
+  
+  const darkModeContext = UseDarkModeContext()
+  const {darkMode, setDarkMode} = darkModeContext
 
   return (
-    <DarkModeContext.Provider value={{darkMode, setDarkMode}}>
       <div className={`relative flex flex-col animate-fadeIn ${darkMode ? 'bg-landing-gradient-dark-2' : 'bg-landing-gradient-test'}`}>
           <Navbar/>
           <Hero/>
@@ -23,8 +24,5 @@ export default function Home() {
           <ShoppingTest/>
           <Footer/>
       </div>
-    </DarkModeContext.Provider>
   );
 }
-
-

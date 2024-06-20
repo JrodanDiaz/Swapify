@@ -1,4 +1,5 @@
-import { createContext, useContext, Dispatch, SetStateAction } from 'react';
+'use client'
+import { createContext, useContext, Dispatch, SetStateAction, useState, ReactNode } from 'react';
 
 interface DarkModeContextType {
     darkMode: boolean;
@@ -6,6 +7,16 @@ interface DarkModeContextType {
   }
 
 export const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined)
+
+export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
+    const [darkMode, setDarkMode] = useState<boolean>(false);
+  
+    return (
+      <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+        {children}
+      </DarkModeContext.Provider>
+    );
+  };
 
 export function UseDarkModeContext() {
     const DarkMode = useContext(DarkModeContext)

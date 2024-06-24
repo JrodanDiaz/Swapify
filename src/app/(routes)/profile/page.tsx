@@ -1,9 +1,9 @@
 "use client";
-import Navbar from "../_components/Navbar";
+import Navbar from "../../_components/Navbar";
 import Image from "next/image";
-import Sidebar from "../_components/account/Sidebar";
+import Sidebar from "../../_components/account/Sidebar";
 import { usePathname } from "next/navigation";
-import { useUserContext } from "../_lib/_context/UserContext";
+import { useUserContext } from "../../_lib/_context/UserContext";
 import { useRef, useState } from "react";
 
 export default function AccountPage() {

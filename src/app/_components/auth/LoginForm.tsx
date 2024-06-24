@@ -1,6 +1,6 @@
 import RegisterForm from "../RegisterForm";
-import { loginFormData } from "@/app/_data/RegisterFormData";
-import { loginFormInputs } from "@/app/_data/RegisterFormData";
+import { loginFormData } from "@/app/_lib/_data/RegisterFormData";
+import { loginFormInputs } from "@/app/_lib/_data/RegisterFormData";
 import registerServerAction from "@/app/_actions/registerAction";
 import LoginFooter from "./LoginFooter";
 

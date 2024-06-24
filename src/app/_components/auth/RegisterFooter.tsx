@@ -11,7 +11,7 @@ export default function RegisterFooter() {
           </Link>
         </p>
         <p>
-          By creating an account, I accept Swapify's{" "}
+          {`By creating an account, I accept Swapify's `}
           <Link href="/terms-of-service" className="font-semibold">
             Terms of Service
           </Link>

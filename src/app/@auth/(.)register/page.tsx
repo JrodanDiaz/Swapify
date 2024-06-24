@@ -1,7 +1,7 @@
-import { Modal } from "@/app/components/Modal";
-import SignupForm from "@/app/components/auth/SignupForm";
-import Delay from "@/app/components/Delay";
-import RegisterFormSkeleton from "@/app/components/RegisterFormSkeleton";
+import { Modal } from "@/app/_components/Modal";
+import SignupForm from "@/app/_components/auth/SignupForm";
+import Delay from "@/app/_components/Delay";
+import RegisterFormSkeleton from "@/app/_components/RegisterFormSkeleton";
 
 export default function RegisterModal() {
   return (

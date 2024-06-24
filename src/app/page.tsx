@@ -1,7 +1,7 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/landingPage/Hero";
-import ShoppingCategories from "./components/landingPage/ShoppingCategories";
-import Slider from "./components/landingPage/Slider";
+import Navbar from "./_components/Navbar";
+import Hero from "./_components/landingPage/Hero";
+import ShoppingCategories from "./_components/landingPage/ShoppingCategories";
+import Slider from "./_components/landingPage/Slider";
 
 export default function Home() {
   return (

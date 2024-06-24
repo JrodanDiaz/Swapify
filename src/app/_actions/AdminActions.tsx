@@ -1,6 +1,5 @@
 "use server";
-import { getTable } from "../_database/queries";
-import { createTable } from "../_database/queries";
+import { getTable } from "../_lib/_database/queries";
 
 export const getUsersAction = async (formData: FormData) => {
   try {

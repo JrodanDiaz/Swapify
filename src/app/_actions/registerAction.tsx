@@ -1,12 +1,7 @@
 "use server";
 
-import { registerBodySchema } from "../_types/schemas";
-import {
-  createTable,
-  createUser,
-  userAlreadyExist,
-  updateUserEmail,
-} from "../_database/queries";
+import { registerBodySchema } from "../_lib/_types/schemas";
+import { createTable, updateUserEmail } from "../_lib/_database/queries";
 
 async function registerServerAction(state: any, formData: FormData) {
   const registerBody = registerBodySchema.safeParse({

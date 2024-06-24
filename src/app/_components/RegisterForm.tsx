@@ -1,13 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { FormInput } from "../_types/types";
-import { FormData_t } from "../_types/types";
-import { ServerAction } from "../_types/types";
+import { FormInput } from "../_lib/_types/types";
+import { FormData_t } from "../_lib/_types/types";
+import { ServerAction } from "../_lib/_types/types";
 import CornerButton from "./CornerButton";
 import { useFormState } from "react-dom";
-import { FormMode } from "../_types/types";
-import { RegisterInputs } from "../_types/types";
-import { InputsEdited } from "../_types/types";
+import { FormMode } from "../_lib/_types/types";
+import { RegisterInputs } from "../_lib/_types/types";
+import { InputsEdited } from "../_lib/_types/types";
 import { useEffect, useState } from "react";
 
 interface RegisterFormProps {

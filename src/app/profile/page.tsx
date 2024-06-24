@@ -1,9 +1,9 @@
 "use client";
-import Navbar from "../components/Navbar";
+import Navbar from "../_components/Navbar";
 import Image from "next/image";
-import Sidebar from "../components/account/Sidebar";
+import Sidebar from "../_components/account/Sidebar";
 import { usePathname } from "next/navigation";
-import { useUserContext } from "../_context/UserContext";
+import { useUserContext } from "../_lib/_context/UserContext";
 import { useRef, useState } from "react";
 
 export default function AccountPage() {
@@ -55,7 +55,7 @@ export default function AccountPage() {
     <>
       <Navbar />
       <div className="pt-20 flex justify-around border-red-600 border-4">
-        <Sidebar currentRoute={usePathname()} />
+        <Sidebar />
         <div className="border-blue-600 border-2 w-3/5 flex flex-wrap justify-around">
           <div className="flex flex-col">
             <label htmlFor="username" className="font-semibold">

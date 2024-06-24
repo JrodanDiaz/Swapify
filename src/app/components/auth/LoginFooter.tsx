@@ -5,7 +5,7 @@ export default function LoginFooter() {
     <>
       <div className="text-center text-xs animate-fadeIn">
         <p className=" text-sm mb-2">
-          Don't have an account?{" "}
+          {`Don't have an account? `}
           <Link href="/register" className="font-semibold underline">
             Sign up
           </Link>

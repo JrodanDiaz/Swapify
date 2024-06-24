@@ -1,6 +1,6 @@
 "use client";
 import { getUsersAction } from "@/app/_actions/AdminActions";
-import CornerButton from "@/app/_components/CornerButton";
+import CornerButton from "@/app/_components/common/CornerButton";
 import { useRouter } from "next/navigation";
 export default function AdminBoard() {
   const router = useRouter();

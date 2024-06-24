@@ -1,4 +1,4 @@
-import Navbar from "../_components/Navbar";
+import Navbar from "../_components/common/Navbar";
 import Hero from "../_components/landingPage/Hero";
 import ShoppingCategories from "../_components/landingPage/ShoppingCategories";
 import Slider from "../_components/landingPage/Slider";

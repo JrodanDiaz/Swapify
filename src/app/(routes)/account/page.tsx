@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "../../_components/Navbar";
+import Navbar from "../../_components/common/Navbar";
 import Image from "next/image";
 import Sidebar from "../../_components/account/Sidebar";
 import { useUserContext } from "../../_lib/_context/UserContext";

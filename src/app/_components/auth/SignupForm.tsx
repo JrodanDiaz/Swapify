@@ -1,4 +1,4 @@
-import RegisterForm from "../RegisterForm";
+import RegisterForm from "../common/RegisterForm";
 import { registerFormInputs } from "@/app/_lib/_data/RegisterFormData";
 import { registerFormData } from "@/app/_lib/_data/RegisterFormData";
 import registerServerAction from "@/app/_actions/registerAction";

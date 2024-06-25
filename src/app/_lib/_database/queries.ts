@@ -1,5 +1,7 @@
 import { pool } from "./PostgresPool";
 import { RegisterBody } from "../_types/types";
+import { ServerResponse } from "../_types/types";
+import { QueryResult } from "pg";
 
 export const createTable = async () => {
   try {
@@ -64,5 +66,21 @@ export const updateUserEmail = async (
     );
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getUserId = async (
+  username: string
+): Promise<number | ServerResponse> => {
+  try {
+    type UserId = { id: number };
+    const query = "SELECT id FROM users WHERE username = $1";
+    const userRow: QueryResult<UserId> = await pool.query(query, [username]);
+    if (userRow.rows.length === 0)
+      return { success: false, message: "User has no id" };
+    return userRow.rows[0].id;
+  } catch (err) {
+    console.log(err);
+    return { success: false, message: "Unknown error occurred" };
   }
 };

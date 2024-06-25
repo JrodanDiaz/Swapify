@@ -3,19 +3,28 @@ import Navbar from "../../_components/common/Navbar";
 import Image from "next/image";
 import Sidebar from "../../_components/account/Sidebar";
 import { useUserContext } from "../../_lib/_context/UserContext";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AccountPage() {
   const user = useUserContext();
   const router = useRouter();
-  if (user.id === -1) {
-    router.push("/login");
-  }
+
   const [email, setEmail] = useState(user.email);
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState(user.password);
   const [location, setLocation] = useState(user.location);
+
+  useEffect(() => {
+    if (user.id === -1) {
+      router.push("/login");
+    } else {
+      setEmail(user.email);
+      setUsername(user.username);
+      setPassword(user.password);
+      setLocation(user.location);
+    }
+  }, [user]);
 
   const defaultImage = "/pfp.png";
   const [selectedImage, setSelectedImage] = useState<string | null>(

@@ -7,7 +7,6 @@ import CornerButton from "../common/CornerButton";
 import { useFormState } from "react-dom";
 import { FormMode } from "@/app/_lib/_types/types";
 import { RegisterInputs } from "@/app/_lib/_types/types";
-import { InputsEdited } from "@/app/_lib/_types/types";
 import { useEffect, useState } from "react";
 import { useUserDispatchContext } from "@/app/_lib/_context/UserContext";
 
@@ -91,10 +90,12 @@ const RegisterForm = ({
 
   const setUserContext = useUserDispatchContext();
   useEffect(() => {
-    if (serverResponse?.success) {
+    if (serverResponse === null) {
+      console.log("Arctic Monkeys #1");
+    } else if (serverResponse.success) {
       setUserContext(serverResponse.user);
     }
-  }, [serverResponse]);
+  }, [serverResponse, setUserContext]);
 
   return (
     <>
@@ -111,6 +112,7 @@ const RegisterForm = ({
             <h2 className=" font-bold text-3xl animate-fadeIn">
               {formData.title}
             </h2>
+            {serverResponse?.success && <h3>{serverResponse.message}</h3>}
             <div className="flex flex-col w-full animate-fadeIn">
               {FormInputs.map((item, i) => (
                 <>

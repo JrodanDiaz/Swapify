@@ -32,6 +32,23 @@ export type ServerResponse = {
   message: string;
 };
 
+export type User =
+  | ({
+      id: number;
+    } & RegisterBody)
+  | undefined;
+
+export type AuthResponse = {
+  success: boolean;
+  message: string;
+  user: User;
+};
+
+export type AuthAction = (
+  state: any,
+  formData: FormData
+) => Promise<AuthResponse>;
+
 export type ServerAction = (
   state: any,
   formData: FormData

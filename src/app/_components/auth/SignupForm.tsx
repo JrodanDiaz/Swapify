@@ -8,7 +8,7 @@ export default function SignupForm() {
   return (
     <RegisterForm
       mode="register"
-      serverAction={registerServerAction}
+      authAction={registerServerAction}
       formData={registerFormData}
       FormInputs={registerFormInputs}
       footer={<RegisterFooter />}

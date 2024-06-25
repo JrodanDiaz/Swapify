@@ -2,17 +2,18 @@
 import { useRouter } from "next/navigation";
 import { FormInput } from "@/app/_lib/_types/types";
 import { FormData_t } from "@/app/_lib/_types/types";
-import { ServerAction } from "@/app/_lib/_types/types";
+import { AuthAction } from "@/app/_lib/_types/types";
 import CornerButton from "./CornerButton";
 import { useFormState } from "react-dom";
 import { FormMode } from "@/app/_lib/_types/types";
 import { RegisterInputs } from "@/app/_lib/_types/types";
 import { InputsEdited } from "@/app/_lib/_types/types";
 import { useEffect, useState } from "react";
+import { useUserDispatchContext } from "@/app/_lib/_context/UserContext";
 
 interface RegisterFormProps {
   mode: FormMode;
-  serverAction: ServerAction;
+  authAction: AuthAction;
   formData: FormData_t;
   FormInputs: FormInput[];
   footer?: React.ReactNode;
@@ -20,7 +21,7 @@ interface RegisterFormProps {
 
 const RegisterForm = ({
   mode,
-  serverAction,
+  authAction,
   formData,
   FormInputs,
   footer,
@@ -30,16 +31,11 @@ const RegisterForm = ({
     router.back();
   };
 
-  const [state, submitAction] = useFormState(serverAction, null);
+  const [serverResponse, submitAction] = useFormState(authAction, null);
   const [formState, setFormState] = useState<RegisterInputs>({
     email: "",
     username: "",
     password: "",
-  });
-  const [inputEdited, setInputEdited] = useState<InputsEdited>({
-    email: false,
-    username: false,
-    password: false,
   });
 
   const [inputError, setInputError] = useState({
@@ -47,13 +43,6 @@ const RegisterForm = ({
     username: "",
     password: "",
   });
-
-  const inputsAreFilled = () => {
-    const { email, username, password } = formState;
-    if (mode === "login") return username && password;
-    if (mode === "register") return email && username && password;
-    return false;
-  };
 
   const inputsAreValid = () => {
     const { email, username, password } = inputError;
@@ -68,11 +57,6 @@ const RegisterForm = ({
       ...formState,
       [name]: value.trim(),
     });
-
-    setInputEdited({
-      ...inputEdited,
-      [name]: true,
-    });
   };
 
   useEffect(() => {
@@ -82,6 +66,10 @@ const RegisterForm = ({
         username: "",
         password: "",
       };
+
+      if (!formState.email.includes("@") && formState.email.length > 0) {
+        errors.email = "Must be valid email address";
+      }
 
       if (formState.username.length > 0 && formState.username.length < 4) {
         errors.username = "Username must be at least 4 characters";
@@ -100,6 +88,13 @@ const RegisterForm = ({
 
     validateInput();
   }, [formState]);
+
+  const setUserContext = useUserDispatchContext();
+  useEffect(() => {
+    if (serverResponse?.success) {
+      setUserContext(serverResponse.user);
+    }
+  }, [serverResponse]);
 
   return (
     <>
@@ -146,11 +141,9 @@ const RegisterForm = ({
             </div>
             <div className="animate-fadeIn w-full mt-2">
               <button
-                type={
-                  inputsAreFilled() && inputsAreValid() ? "submit" : "button"
-                }
+                type={inputsAreValid() ? "submit" : "button"}
                 className={`${
-                  inputsAreFilled() && inputsAreValid()
+                  inputsAreValid()
                     ? "bg-main-lightblack text-white transition-colors duration-400"
                     : "bg-neutral-200 text-black text-opacity-20  cursor-not-allowed hover:bg-neutral-300 transition-colors duration-400"
                 } border-black border-[1px] px-4 py-2 rounded-sm w-full`}

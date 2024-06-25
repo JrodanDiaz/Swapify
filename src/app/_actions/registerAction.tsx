@@ -1,9 +1,19 @@
 "use server";
 
 import { registerBodySchema } from "../_lib/_types/schemas";
-import { createTable, updateUserEmail } from "../_lib/_database/queries";
+import { AuthResponse } from "../_lib/_types/types";
+import { User } from "../_lib/_types/types";
+import {
+  createTable,
+  createUser,
+  userAlreadyExist,
+  getUserId,
+} from "../_lib/_database/queries";
 
-async function registerServerAction(state: any, formData: FormData) {
+async function registerServerAction(
+  state: any,
+  formData: FormData
+): Promise<AuthResponse> {
   const registerBody = registerBodySchema.safeParse({
     email: formData.get("email") as string,
     username: formData.get("username") as string,
@@ -11,23 +21,38 @@ async function registerServerAction(state: any, formData: FormData) {
     password: formData.get("password") as string,
   });
 
-  console.log(
-    `email: ${registerBody.data?.email}, name: ${registerBody.data?.username}, password: ${registerBody.data?.password}`
-  );
-
   if (!registerBody.success) {
     console.log("invalid form input");
+    return { success: false, message: "Invalid form input", user: undefined };
+  }
 
-    return { success: false, message: "Invalid form input" };
+  if (await userAlreadyExist(registerBody.data.username)) {
+    console.log(`Error: User ${registerBody.data.username} already exists`);
+    return { success: false, message: "User already exists", user: undefined };
   }
 
   await createTable();
 
-  await updateUserEmail(registerBody.data, "Superman");
+  await createUser(registerBody.data);
 
-  // const res = await createUser(registerBody.data);
+  const userId = await getUserId(registerBody.data.username);
+  if (typeof userId === "object") {
+    return {
+      success: userId.success,
+      message: userId.message,
+      user: undefined,
+    };
+  }
 
-  return { success: true, message: "lovely" };
+  const user: User = {
+    id: userId,
+    email: registerBody.data.email,
+    username: registerBody.data.username,
+    location: registerBody.data.location,
+    password: registerBody.data.password,
+  };
+
+  return { success: true, message: "success", user: user };
 }
 
 export default registerServerAction;

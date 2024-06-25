@@ -1,15 +1,11 @@
 "use client";
 import { SetStateAction, createContext, useContext, useState } from "react";
+import { User } from "../_types/types";
 
-const UserContext = createContext<authorizedUser | undefined>(undefined);
+const UserContext = createContext<User | undefined>(undefined);
 const UserDispatchContext = createContext<
-  React.Dispatch<SetStateAction<authorizedUser>> | undefined
+  React.Dispatch<SetStateAction<User>> | undefined
 >(undefined);
-
-type authorizedUser = {
-  token: string;
-  username: string;
-};
 
 export const useUserContext = () => {
   const context = useContext(UserContext);
@@ -30,9 +26,12 @@ export const useUserDispatchContext = () => {
 };
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<authorizedUser>({
-    token: "xyz-123",
-    username: "Jordan.0114",
+  const [user, setUser] = useState<User>({
+    id: -1,
+    email: "",
+    username: "",
+    location: "",
+    password: "",
   });
   return (
     <UserContext.Provider value={user}>

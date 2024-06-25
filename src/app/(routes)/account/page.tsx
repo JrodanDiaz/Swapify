@@ -4,11 +4,18 @@ import Image from "next/image";
 import Sidebar from "../../_components/account/Sidebar";
 import { useUserContext } from "../../_lib/_context/UserContext";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function AccountPage() {
   const user = useUserContext();
+  const router = useRouter();
+  if (user.id === -1) {
+    router.push("/login");
+  }
+  const [email, setEmail] = useState(user.email);
   const [username, setUsername] = useState(user.username);
-  const [password, setPassword] = useState("1234");
-  const [location, setLocation] = useState("Miramar");
+  const [password, setPassword] = useState(user.password);
+  const [location, setLocation] = useState(user.location);
 
   const defaultImage = "/pfp.png";
   const [selectedImage, setSelectedImage] = useState<string | null>(
@@ -38,7 +45,9 @@ export default function AccountPage() {
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === "username") {
+    if (e.target.id === "email") {
+      setEmail(e.target.value);
+    } else if (e.target.id === "username") {
       setUsername(e.target.value);
     } else if (e.target.id === "location") {
       setLocation(e.target.value);
@@ -53,6 +62,17 @@ export default function AccountPage() {
         <Sidebar />
         <div className="border-blue-600 border-2 w-3/5 flex flex-wrap justify-around">
           <div className="flex flex-col">
+            <label htmlFor="username" className="font-semibold">
+              Email
+            </label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              className="border-black border-[1px] px-3 py-2 mb-6"
+              value={email}
+              onChange={onInputChange}
+            />
             <label htmlFor="username" className="font-semibold">
               Username
             </label>

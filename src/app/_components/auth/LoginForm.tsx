@@ -8,7 +8,7 @@ export default function LoginForm() {
   return (
     <RegisterForm
       mode="login"
-      serverAction={registerServerAction}
+      authAction={registerServerAction}
       formData={loginFormData}
       FormInputs={loginFormInputs}
       footer={<LoginFooter />}

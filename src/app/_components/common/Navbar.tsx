@@ -51,6 +51,8 @@ const Navbar = () => {
           Dark Mode
         </button>
         <Link href="/account">Account</Link>
+        <Link href="/register">Register</Link>
+        <Link href="/admin">Admin</Link>
       </div>
     </nav>
   );

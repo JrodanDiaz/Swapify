@@ -2,16 +2,20 @@
 import Navbar from "../../_components/common/Navbar";
 import Image from "next/image";
 import Sidebar from "../../_components/account/Sidebar";
-import { usePathname } from "next/navigation";
 import { useUserContext } from "../../_lib/_context/UserContext";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AccountPage() {
   const user = useUserContext();
-  const [email, setEmail] = useState("jordan@jordan.com");
+  const router = useRouter();
+  if (user.id === -1) {
+    router.push("/login");
+  }
+  const [email, setEmail] = useState(user.email);
   const [username, setUsername] = useState(user.username);
-  const [password, setPassword] = useState("1234");
-  const [location, setLocation] = useState("Miramar");
+  const [password, setPassword] = useState(user.password);
+  const [location, setLocation] = useState(user.location);
 
   const defaultImage = "/pfp.png";
   const [selectedImage, setSelectedImage] = useState<string | null>(

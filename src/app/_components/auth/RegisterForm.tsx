@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { FormInput } from "@/app/_lib/_types/types";
 import { FormData_t } from "@/app/_lib/_types/types";
 import { AuthAction } from "@/app/_lib/_types/types";
-import CornerButton from "./CornerButton";
+import CornerButton from "../common/CornerButton";
 import { useFormState } from "react-dom";
 import { FormMode } from "@/app/_lib/_types/types";
 import { RegisterInputs } from "@/app/_lib/_types/types";

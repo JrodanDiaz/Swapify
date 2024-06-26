@@ -112,7 +112,9 @@ const RegisterForm = ({
             <h2 className=" font-bold text-3xl animate-fadeIn">
               {formData.title}
             </h2>
-            {serverResponse?.success && <h3>{serverResponse.message}</h3>}
+            {serverResponse?.success === false && (
+              <h3 className="text-red-600">{serverResponse.message}</h3>
+            )}
             <div className="flex flex-col w-full animate-fadeIn">
               {FormInputs.map((item, i) => (
                 <>

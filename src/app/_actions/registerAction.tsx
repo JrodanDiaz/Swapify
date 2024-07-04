@@ -13,9 +13,7 @@ import {
 async function registerServerAction(
   state: any,
   formData: FormData
-): Promise<AuthResponse> 
-
-{
+): Promise<AuthResponse> {
   const registerBody = registerBodySchema.safeParse({
     email: formData.get("email") as string,
     username: formData.get("username") as string,
@@ -28,7 +26,9 @@ async function registerServerAction(
     return { success: false, message: "Invalid form input", user: undefined };
   }
 
-  if (await userAlreadyExist(registerBody.data.username)) {
+  if (
+    await userAlreadyExist(registerBody.data.username, registerBody.data.email)
+  ) {
     console.log(`Error: User ${registerBody.data.username} already exists`);
     return { success: false, message: "User already exists", user: undefined };
   }

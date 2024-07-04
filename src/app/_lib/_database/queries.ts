@@ -9,10 +9,7 @@ export const createTable = async () => {
       "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, email VARCHAR(100) NOT NULL, username VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL)"
     );
   } catch (err) {
-    console.log(
-      "CREATE TABLE FAILED ==========================================="
-    );
-
+    console.log("CreateTable Failed");
     console.log(err);
   }
 };
@@ -33,33 +30,25 @@ export const getTable = async () => {
     const table = await pool.query("SELECT * FROM users");
     return table;
   } catch (err) {
-    console.log("GET TABLE ERROR ==========================================");
-
+    console.log("getTable failed");
     console.log(err);
   }
 };
 
-export const userAlreadyExist = async (userName: string) => {
+export const userAlreadyExist = async (userName: string, email: string) => {
   try {
-    const res = await pool.query("SELECT * FROM users WHERE username = $1", [
-      userName,
-    ]);
-
+    const res = await pool.query(
+      "SELECT * FROM users WHERE username = $1 OR email = $2",
+      [userName, email]
+    );
     return res.rows.length > 0;
   } catch (err) {
     console.log(err);
   }
 };
 
-export const updateUser = async (
-  user: RegisterBody,
-  id: number
-) => {
+export const updateUser = async (user: RegisterBody, id: number) => {
   try {
-    // We need to use User Context here green fnga
-    //   if (await userAlreadyExist(user.username)) {
-    //     return {success: false, message: "User Already Exists" }
-    //   }
     const res = await pool.query(
       "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE id = $5",
       [user.email, user.username, user.password, user.location, id.toString()]
@@ -77,7 +66,7 @@ export const getUserId = async (
     const query = "SELECT id FROM users WHERE username = $1";
     const userRow: QueryResult<UserId> = await pool.query(query, [username]);
     if (userRow.rows.length === 0)
-      return { success: false, message: "User has no id" };
+      return { success: false, message: "User does not exist" };
     return userRow.rows[0].id;
   } catch (err) {
     console.log(err);

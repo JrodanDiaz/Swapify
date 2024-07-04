@@ -13,7 +13,9 @@ import {
 async function registerServerAction(
   state: any,
   formData: FormData
-): Promise<AuthResponse> {
+): Promise<AuthResponse> 
+
+{
   const registerBody = registerBodySchema.safeParse({
     email: formData.get("email") as string,
     username: formData.get("username") as string,

@@ -5,6 +5,8 @@ import Sidebar from "../../_components/account/Sidebar";
 import { useUserContext } from "../../_lib/_context/UserContext";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useFormState } from "react-dom";
+import updateUserAction from "@/app/_actions/updateUserAction";
 
 export default function AccountPage() {
   const user = useUserContext();
@@ -14,6 +16,8 @@ export default function AccountPage() {
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState(user.password);
   const [location, setLocation] = useState(user.location);
+
+  const [formState, updateAction] = useFormState(updateUserAction, user.id)
 
   useEffect(() => {
     if (user.id === -1) {
@@ -74,47 +78,50 @@ export default function AccountPage() {
             <label htmlFor="username" className="font-semibold">
               Email
             </label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              className="border-black border-[1px] px-3 py-2 mb-6"
-              value={email}
-              onChange={onInputChange}
-            />
-            <label htmlFor="username" className="font-semibold">
-              Username
-            </label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              className="border-black border-[1px] px-3 py-2 mb-6"
-              value={username}
-              onChange={onInputChange}
-            />
-            <label htmlFor="location" className="font-semibold">
-              Location
-            </label>
-            <input
-              type="text"
-              name="location"
-              id="location"
-              className="border-black border-[1px] px-3 py-2 mb-6"
-              value={location}
-              onChange={onInputChange}
-            />
-            <label htmlFor="password" className="font-semibold">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={password}
-              onChange={onInputChange}
-              className="border-black border-[1px] px-3 py-2 mb-2"
-            />
+            <form action={updateAction}>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                className="border-black border-[1px] px-3 py-2 mb-6"
+                value={email}
+                onChange={onInputChange}
+                />
+              <label htmlFor="username" className="font-semibold">
+                Username
+              </label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                className="border-black border-[1px] px-3 py-2 mb-6"
+                value={username}
+                onChange={onInputChange}
+                />
+              <label htmlFor="location" className="font-semibold">
+                Location
+              </label>
+              <input
+                type="text"
+                name="location"
+                id="location"
+                className="border-black border-[1px] px-3 py-2 mb-6"
+                value={location}
+                onChange={onInputChange}
+                />
+              <label htmlFor="password" className="font-semibold">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                onChange={onInputChange}
+                className="border-black border-[1px] px-3 py-2 mb-2"
+                />
+              <button className=" px-4 py-2 bg-black text-white rounded-full" type="submit">Gayyyyyyyy</button>
+            </form>
           </div>
           <div className="flex flex-col items-center">
             <div className="border-black border-2 w-[250px] h-[250px] mb-2 overflow-hidden rounded-full relative">
@@ -125,7 +132,7 @@ export default function AccountPage() {
                     layout="fill"
                     objectFit="contain"
                     alt="selected image"
-                  />
+                    />
                 </>
               )}
             </div>

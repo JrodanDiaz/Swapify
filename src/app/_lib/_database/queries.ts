@@ -51,9 +51,9 @@ export const userAlreadyExist = async (userName: string) => {
   }
 };
 
-export const updateUserEmail = async (
+export const updateUser = async (
   user: RegisterBody,
-  oldUsername: string
+  id: number
 ) => {
   try {
     // We need to use User Context here green fnga
@@ -61,11 +61,11 @@ export const updateUserEmail = async (
     //     return {success: false, message: "User Already Exists" }
     //   }
     const res = await pool.query(
-      "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE username = $5",
-      [user.email, user.username, user.password, user.location, oldUsername]
+      "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE id = $5",
+      [user.email, user.username, user.password, user.location, id.toString()]
     );
   } catch (error) {
-    console.log(error);
+    console.log("ur mom", error);
   }
 };
 

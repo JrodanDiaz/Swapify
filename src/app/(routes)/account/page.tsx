@@ -17,7 +17,7 @@ export default function AccountPage() {
   const [password, setPassword] = useState(user.password);
   const [location, setLocation] = useState(user.location);
 
-  const [formState, updateAction] = useFormState(updateUserAction, user.id)
+  const [formState, updateAction] = useFormState(updateUserAction, user.id);
 
   useEffect(() => {
     if (user.id === -1) {
@@ -74,55 +74,58 @@ export default function AccountPage() {
       <div className="pt-20 flex justify-around border-red-600 border-4">
         <Sidebar />
         <div className="border-blue-600 border-2 w-3/5 flex flex-wrap justify-around">
-          <div className="flex flex-col">
+          <form action={updateAction} className="flex flex-col">
             <label htmlFor="username" className="font-semibold">
               Email
             </label>
-            <form action={updateAction}>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                className="border-black border-[1px] px-3 py-2 mb-6"
-                value={email}
-                onChange={onInputChange}
-                />
-              <label htmlFor="username" className="font-semibold">
-                Username
-              </label>
-              <input
-                type="text"
-                name="username"
-                id="username"
-                className="border-black border-[1px] px-3 py-2 mb-6"
-                value={username}
-                onChange={onInputChange}
-                />
-              <label htmlFor="location" className="font-semibold">
-                Location
-              </label>
-              <input
-                type="text"
-                name="location"
-                id="location"
-                className="border-black border-[1px] px-3 py-2 mb-6"
-                value={location}
-                onChange={onInputChange}
-                />
-              <label htmlFor="password" className="font-semibold">
-                Password
-              </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                value={password}
-                onChange={onInputChange}
-                className="border-black border-[1px] px-3 py-2 mb-2"
-                />
-              <button className=" px-4 py-2 bg-black text-white rounded-full" type="submit">Gayyyyyyyy</button>
-            </form>
-          </div>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              className="border-black border-[1px] px-3 py-2 mb-6"
+              value={email}
+              onChange={onInputChange}
+            />
+            <label htmlFor="username" className="font-semibold">
+              Username
+            </label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              className="border-black border-[1px] px-3 py-2 mb-6"
+              value={username}
+              onChange={onInputChange}
+            />
+            <label htmlFor="location" className="font-semibold">
+              Location
+            </label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              className="border-black border-[1px] px-3 py-2 mb-6"
+              value={location}
+              onChange={onInputChange}
+            />
+            <label htmlFor="password" className="font-semibold">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={onInputChange}
+              className="border-black border-[1px] px-3 py-2 mb-2"
+            />
+            <button
+              className=" px-4 py-2 bg-black text-white rounded-full"
+              type="submit"
+            >
+              Gayyyyyyyy
+            </button>
+          </form>
           <div className="flex flex-col items-center">
             <div className="border-black border-2 w-[250px] h-[250px] mb-2 overflow-hidden rounded-full relative">
               {selectedImage && (
@@ -132,7 +135,7 @@ export default function AccountPage() {
                     layout="fill"
                     objectFit="contain"
                     alt="selected image"
-                    />
+                  />
                 </>
               )}
             </div>

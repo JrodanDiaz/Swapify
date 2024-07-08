@@ -17,7 +17,7 @@ export default function AccountPage() {
   const [password, setPassword] = useState(user.password);
   const [location, setLocation] = useState(user.location);
 
-  const [formState, updateAction] = useFormState(updateUserAction, user.id);
+  const [formState, updateAction] = useFormState(updateUserAction, null);
 
   useEffect(() => {
     if (user.id === -1) {
@@ -118,6 +118,11 @@ export default function AccountPage() {
               value={password}
               onChange={onInputChange}
               className="border-black border-[1px] px-3 py-2 mb-2"
+            />
+            <input
+              type="hidden"
+              name="id"
+              value={user.id}
             />
             <button
               className=" px-4 py-2 bg-black text-white rounded-full"

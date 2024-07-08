@@ -20,6 +20,13 @@ export default function AccountPage() {
   const [formState, updateAction] = useFormState(updateUserAction, null);
 
   useEffect(() => {
+    if (formState?.message) {
+      console.log(formState.message);
+    }
+    console.log("formState changed");
+  }, [formState]);
+
+  useEffect(() => {
     if (user.id === -1) {
       router.push("/login");
     } else {
@@ -119,11 +126,7 @@ export default function AccountPage() {
               onChange={onInputChange}
               className="border-black border-[1px] px-3 py-2 mb-2"
             />
-            <input
-              type="hidden"
-              name="id"
-              value={user.id}
-            />
+            <input type="hidden" name="id" value={user.id} />
             <button
               className=" px-4 py-2 bg-black text-white rounded-full"
               type="submit"

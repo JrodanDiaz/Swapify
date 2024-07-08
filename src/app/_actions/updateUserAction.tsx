@@ -2,11 +2,11 @@
 
 import { ServerResponse } from "../_lib/_types/types";
 import { updateUser, userAlreadyExist } from "../_lib/_database/queries";
-import { registerBodySchema } from "../_lib/_types/schemas";
+import { userBodySchema } from "../_lib/_types/schemas";
 
 async function updateUserAction(state: any, formData: FormData): Promise<ServerResponse> 
 {
-  const userBody = registerBodySchema.safeParse({
+  const userBody = userBodySchema.safeParse({
     id: formData.get("id") as string, 
     email: formData.get("email") as string,
     username: formData.get("username") as string,
@@ -18,7 +18,7 @@ async function updateUserAction(state: any, formData: FormData): Promise<ServerR
     return { success: false, message: "Invalid from Input" };
   }
 
-  if (await userAlreadyExist(userBody.data.username, userBody.data.email)) {
+  if (await userAlreadyExist(userBody.data.username, userBody.data.email, userBody.data.id)) {
     return { success: false, message: "Username or Email Already Taken" };
   }
 

@@ -35,23 +35,30 @@ export const getTable = async () => {
   }
 };
 
-export const userAlreadyExist = async (userName: string, email: string) => {
+export const userAlreadyExist = async (userName: string, email: string, id?: string) => {
   try {
-    const res = await pool.query(
-      "SELECT * FROM users WHERE username = $1 OR email = $2",
-      [userName, email]
-    );
+
+    let query = "SELECT * FROM users WHERE (username = $1 OR email = $2)" 
+    const values = [userName, email]
+
+    if(id) {
+      query += " AND id != $3"
+      values.push(id)
+    }
+
+    const res = await pool.query(query, values);
     return res.rows.length > 0;
   } catch (err) {
+    console.log("User Already Exists failed");
     console.log(err);
   }
 };
 
-export const updateUser = async (user: RegisterBody, id: number) => {
+export const updateUser = async (user: RegisterBody, id: string) => {
   try {
     const res = await pool.query(
       "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE id = $5",
-      [user.email, user.username, user.password, user.location, id.toString()]
+      [user.email, user.username, user.password, user.location, id]
     );
   } catch (error) {
     console.log("ur mom", error);

@@ -74,14 +74,14 @@ export const updateUser = async (user: RegisterBody, id: string): Promise<AsyncF
 
 export const getUserId = async (
   username: string
-): Promise<number | ServerResponse> => {
+): Promise<string | ServerResponse> => {
   try {
     type UserId = { id: number };
     const query = "SELECT id FROM users WHERE username = $1";
     const userRow: QueryResult<UserId> = await pool.query(query, [username]);
     if (userRow.rows.length === 0)
       return { success: false, message: "User does not exist" };
-    return userRow.rows[0].id;
+    return userRow.rows[0].id.toString();
   } catch (err) {
     console.log(err);
     return { success: false, message: "Unknown error occurred" };

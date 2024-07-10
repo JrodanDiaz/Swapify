@@ -27,7 +27,7 @@ export const useUserDispatchContext = () => {
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User>({
-    id: -1,
+    id: "-1",
     email: "",
     username: "",
     location: "",

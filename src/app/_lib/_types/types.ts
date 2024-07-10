@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { registerBodySchema } from "./schemas";
+import { registerBodySchema, userBodySchema } from "./schemas";
 
 export type FormInput = {
   label: string;
@@ -32,11 +32,7 @@ export type ServerResponse = {
   message: string;
 };
 
-export type User =
-  | ({
-      id: number;
-    } & RegisterBody)
-  | undefined;
+export type User = z.infer<typeof userBodySchema> | undefined
 
 export type AuthResponse = {
   success: boolean;

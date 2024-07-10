@@ -24,9 +24,13 @@ async function registerServerAction(state: any, formData: FormData): Promise<Aut
     return { success: false, message: "Invalid form input", user: undefined };
   }
 
-  if (await userAlreadyExist(registerBody.data.username, registerBody.data.email)) {
+  const {success, userExists} = await userAlreadyExist(registerBody.data.username, registerBody.data.email)
+  
+  if(!success) return { success: false, message: "Internal Server Error", user: undefined}
+  
+  if(userExists) {
     console.log(`Error: User ${registerBody.data.username} already exists`);
-    return { success: false, message: "User already exists", user: undefined };
+    return { success: false, message: "User Already Exists", user: undefined}
   }
 
   await createTable();

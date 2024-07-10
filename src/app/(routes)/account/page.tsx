@@ -2,7 +2,10 @@
 import Navbar from "../../_components/common/Navbar";
 import Image from "next/image";
 import Sidebar from "../../_components/account/Sidebar";
-import { useUserContext } from "../../_lib/_context/UserContext";
+import {
+  useUserContext,
+  useUserDispatchContext,
+} from "../../_lib/_context/UserContext";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
@@ -10,6 +13,7 @@ import updateUserAction from "@/app/_actions/updateUserAction";
 
 export default function AccountPage() {
   const user = useUserContext();
+  const updateUserContext = useUserDispatchContext();
   const router = useRouter();
 
   const [email, setEmail] = useState(user.email);
@@ -20,14 +24,17 @@ export default function AccountPage() {
   const [formState, updateAction] = useFormState(updateUserAction, null);
 
   useEffect(() => {
-    if (formState?.message) {
+    if (formState === null) return;
+    if (formState.success) {
+      updateUserContext(formState.user);
+      console.log(formState.message);
+    } else if (!formState.success) {
       console.log(formState.message);
     }
-    console.log("formState changed");
-  }, [formState]);
+  }, [formState, updateUserContext]);
 
   useEffect(() => {
-    if (user.id === -1) {
+    if (user.id === "-1") {
       router.push("/login");
     } else {
       setEmail(user.email);
@@ -82,6 +89,7 @@ export default function AccountPage() {
         <Sidebar />
         <div className="border-blue-600 border-2 w-3/5 flex flex-wrap justify-around">
           <form action={updateAction} className="flex flex-col">
+            <input type="hidden" name="id" value={user.id} />
             <label htmlFor="username" className="font-semibold">
               Email
             </label>
@@ -126,7 +134,6 @@ export default function AccountPage() {
               onChange={onInputChange}
               className="border-black border-[1px] px-3 py-2 mb-2"
             />
-            <input type="hidden" name="id" value={user.id} />
             <button
               className=" px-4 py-2 bg-black text-white rounded-full"
               type="submit"
@@ -141,7 +148,7 @@ export default function AccountPage() {
                   <Image
                     src={selectedImage}
                     layout="fill"
-                    objectFit="contain"
+                    objectFit="cover"
                     alt="selected image"
                   />
                 </>

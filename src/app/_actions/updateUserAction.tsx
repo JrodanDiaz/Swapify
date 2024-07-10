@@ -18,11 +18,16 @@ async function updateUserAction(state: any, formData: FormData): Promise<ServerR
     return { success: false, message: "Invalid from Input" };
   }
 
-  if (await userAlreadyExist(userBody.data.username, userBody.data.email, userBody.data.id)) {
+  const {success, userExists} = await userAlreadyExist(userBody.data.username, userBody.data.email, userBody.data.id);
+  if(!success) return { success: false, message: "Internal Server Error" }
+
+  if (userExists) {
     return { success: false, message: "Username or Email Already Taken" };
   }
 
-  await updateUser(userBody.data, userBody.data.id);
+  const updateUserResult = await updateUser(userBody.data, userBody.data.id);
+  if(!updateUserResult.success) return { success: false, message: "Internal Server Error" }
+  
   return { success: true, message: "Google where you at????" };
 }
 

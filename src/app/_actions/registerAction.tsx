@@ -34,6 +34,7 @@ async function registerServerAction(state: any, formData: FormData): Promise<Aut
   await createUser(registerBody.data);
 
   const userId = await getUserId(registerBody.data.username);
+  
   if (typeof userId === "object") {
     return {
       success: userId.success,

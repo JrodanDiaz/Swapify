@@ -1,5 +1,5 @@
 import { pool } from "./PostgresPool";
-import { RegisterBody } from "../_types/types";
+import { AsyncFunctionResult, RegisterBody } from "../_types/types";
 import { ServerResponse } from "../_types/types";
 import { QueryResult } from "pg";
 
@@ -35,33 +35,40 @@ export const getTable = async () => {
   }
 };
 
-export const userAlreadyExist = async (userName: string, email: string, id?: string) => {
+export const userAlreadyExist = async (userName: string, email: string, id?: string): Promise<AsyncFunctionResult<{userExists: boolean}>> => {
   try {
 
     let query = "SELECT * FROM users WHERE (username = $1 OR email = $2)" 
     const values = [userName, email]
 
     if(id) {
-      query += " AND id != $3"
-      values.push(id)
+      query += " AND id != $3";
+      values.push(id);
     }
 
     const res = await pool.query(query, values);
-    return res.rows.length > 0;
+    return {
+      success: true,
+      userExists: res.rows.length > 0 
+    }
+
   } catch (err) {
     console.log("User Already Exists failed");
     console.log(err);
+    return {success: false, userExists: false}
   }
 };
 
-export const updateUser = async (user: RegisterBody, id: string) => {
+export const updateUser = async (user: RegisterBody, id: string): Promise<AsyncFunctionResult<{}>> => {
   try {
     const res = await pool.query(
       "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE id = $5",
       [user.email, user.username, user.password, user.location, id]
     );
+    return {success: true}
   } catch (error) {
     console.log("ur mom", error);
+    return {success: false}
   }
 };
 

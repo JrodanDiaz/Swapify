@@ -55,3 +55,8 @@ export type ServerAction = (
 ) => Promise<ServerResponse>;
 
 export type FormMode = "register" | "login" | "admin";
+
+export type AsyncFunctionResult<T extends {}> = {
+    success: boolean;
+} & T;
+

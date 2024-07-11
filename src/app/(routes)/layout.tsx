@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { DarkModeProvider } from "../_components/DarkModeContext";
 import { UserProvider } from "../_lib/_context/UserContext";
 import "../globals.css";
 
@@ -23,9 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <UserProvider>
-          {admin}
-          {auth}
-          {children}
+          <DarkModeProvider>
+            {admin}
+            {auth}
+            {children}
+          </DarkModeProvider>
         </UserProvider>
       </body>
     </html>

@@ -1,61 +1,173 @@
 "use client";
-import Link from "next/link";
+
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
+import { UseDarkModeContext } from "../DarkModeContext";
 
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const darkModeContext = UseDarkModeContext();
+  const { darkMode, setDarkMode } = darkModeContext;
+  const [hamburgerClicked, setHamburgerClicked] = useState<boolean>(false);
+
+  const handleHamburgerClick = () => {
+    setHamburgerClicked(!hamburgerClicked);
+  };
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
 
   return (
-    <nav className="flex flex-row w-full items-center p-4 border border-black border-b-1 fixed z-10 bg-transparent  bg-opacity-50 backdrop-blur-sm ">
-      <div className="">
-        <h1
-          className={`text-3xl text-bold font-bold ${
-            darkMode ? "black" : "text-main-pink"
-          }`}
-        >
-          Swapify
-        </h1>
+    <nav className="fixed flex flex-col w-full z-50 border border-black border-b-1  bg-transparent bg-opacity-50 backdrop-blur-sm ">
+      <div className={`flex flex-row w-full gap-5 items-center p-4 h-[70px]`}>
+        <div className="flex flex-row gap-8 w-full">
+          <h1
+            className={`text-3xl font-bold transition-colors duration-500 ease-in-out ${
+              darkMode ? "text-white" : "text-main-pink"
+            }`}
+          >
+            <Link href="/">Swapify</Link>
+          </h1>
+          <div className="hidden sm:block relative w-full">
+            <Image
+              className="absolute left-2 top-2"
+              src="/search.svg"
+              height="20"
+              width="20"
+              alt="exit"
+            ></Image>
+            <input
+              placeholder="Search"
+              className="md:max-w-[500px] min-h-[35px] w-full min-w-[300px] max-w-[300px] text-center rounded-xl focus:outline-none border border-black border-1 bg-bone-white"
+            ></input>
+          </div>
+        </div>
+
+        {darkMode ? (
+          <div className="flex flex-row gap-6 pr-4">
+            <Image
+              className="sm:hidden"
+              src="/search-dark.svg"
+              height="24"
+              width="24"
+              alt="exit"
+            ></Image>
+            <Image
+              className="block md:hidden"
+              src="/menu-dark.svg"
+              height="24"
+              width="24"
+              alt="exit"
+            ></Image>
+            <Link
+              className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
+              href="/shoppingcart"
+            >
+              <Image
+                className="cursor-pointer"
+                src="/shopping-cart-dark.svg"
+                layout="fill"
+                alt="shopping cart"
+              />
+            </Link>
+            <Image
+              className="hidden md:block cursor-pointer"
+              src="/shopping-bag-dark.svg"
+              height="300"
+              width="30"
+              alt="shopping bag"
+            ></Image>
+            <Image
+              className="hidden md:block cursor-pointer"
+              src="/user-dark.svg"
+              height="300"
+              width="30"
+              alt="user"
+            ></Image>
+            <Image
+              onClick={toggleDarkMode}
+              className="hidden md:block cursor-pointer"
+              src="/moon.svg"
+              height="300"
+              width="30"
+              alt="user"
+            ></Image>
+          </div>
+        ) : (
+          <div className="flex flex-row gap-6 pr-4">
+            <Image
+              className="sm:hidden"
+              src="/search.svg"
+              height="24"
+              width="24"
+              alt="exit"
+            ></Image>
+            <Image
+              onClick={handleHamburgerClick}
+              className="block md:hidden"
+              src="/menu.svg"
+              height="24"
+              width="24"
+              alt="exit"
+            ></Image>
+            <Link
+              className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
+              href="/shoppingcart"
+            >
+              <Image
+                className="cursor-pointer"
+                src="/shopping-cart.svg"
+                layout="fill"
+                alt="shopping cart"
+              />
+            </Link>
+            <Image
+              className="hidden md:block cursor-pointer"
+              src="/shopping-bag.svg"
+              height="300"
+              width="30"
+              alt="shopping bag"
+            ></Image>
+            <Image
+              className="hidden md:block cursor-pointer"
+              src="/user.svg"
+              height="300"
+              width="30"
+              alt="user"
+            ></Image>
+            <Image
+              onClick={toggleDarkMode}
+              className="hidden md:block cursor-pointer"
+              src="/sun.svg"
+              height="300"
+              width="30"
+              alt="user"
+            ></Image>
+          </div>
+        )}
       </div>
-
-      <div className="w-[200px] min-w-[10px] flex-shrink-1"></div>
-
-      <div className="min-h-full w-full relative">
-        <Image
-          className="absolute left-2 top-2"
-          src="/search.svg"
-          height="20"
-          width="20"
-          alt="exit"
-        ></Image>
-        <input
-          placeholder="Search"
-          className="min-h-[35px] w-full max-w-[500px] min-w-[300px] text-center rounded-xl focus:outline-none border border-black border-1"
-        ></input>
-      </div>
-
-      <div className="flex flex-row-reverse w-full gap-5 items-center justify-center">
+      <div
+        className={`relative flex w-full h-[70px] gap-8 justify-center md:hidden ${
+          hamburgerClicked ? "block" : "hidden"
+        }`}
+      >
+        <Image src="/user.svg" height={24} width={24} alt="user"></Image>
         <Image
           src="/shopping-cart.svg"
-          height="300"
-          width="30"
-          alt="exit"
+          height={24}
+          width={24}
+          alt="shopping-cart"
         ></Image>
-        <button
-          onClick={toggleDarkMode}
-          className="text-white bg-main-black min-h-full w-full max-w-[125px] border border-black border-1"
-        >
-          Dark Mode
-        </button>
-        <Link href="/account">Account</Link>
-        <Link href="/register">Register</Link>
-        <Link href="/admin">Admin</Link>
+        <Image src="/sun.svg" height={24} width={24} alt="sun"></Image>
+        <Image
+          src="/shopping-bag.svg"
+          height={24}
+          width={24}
+          alt="shopping-bag"
+        ></Image>
       </div>
     </nav>
   );
 };
-
 export default Navbar;

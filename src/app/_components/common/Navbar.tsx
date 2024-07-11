@@ -53,6 +53,17 @@ const Navbar = () => {
               width="24"
               alt="exit"
             ></Image>
+            <Link
+              href="/admin"
+              className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
+            >
+              <Image
+                className="cursor-pointer"
+                src="/command_light.svg"
+                layout="fill"
+                alt="admin"
+              />
+            </Link>
             <Image
               className="block md:hidden"
               src="/menu-dark.svg"
@@ -96,6 +107,17 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex flex-row gap-6 pr-4">
+            <Link
+              href="/admin"
+              className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
+            >
+              <Image
+                className="cursor-pointer"
+                src="/command_dark.svg"
+                layout="fill"
+                alt="exit"
+              />
+            </Link>
             <Image
               className="sm:hidden"
               src="/search.svg"
@@ -129,13 +151,17 @@ const Navbar = () => {
               width="30"
               alt="shopping bag"
             ></Image>
-            <Image
-              className="hidden md:block cursor-pointer"
-              src="/user.svg"
-              height="300"
-              width="30"
-              alt="user"
-            ></Image>
+            <Link
+              href="/account"
+              className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
+            >
+              <Image
+                className="hidden md:block cursor-pointer"
+                src="/user.svg"
+                layout="fill"
+                alt="user"
+              ></Image>
+            </Link>
             <Image
               onClick={toggleDarkMode}
               className="hidden md:block cursor-pointer"

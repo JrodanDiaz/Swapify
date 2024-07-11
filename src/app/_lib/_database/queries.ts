@@ -1,7 +1,8 @@
 import { pool } from "./PostgresPool";
-import { AsyncFunctionResult, RegisterBody } from "../_types/types";
+import { AsyncFunctionResult, RegisterBody, AuthResponse } from "../_types/types";
 import { ServerResponse } from "../_types/types";
 import { QueryResult } from "pg";
+import { User } from "../_types/types";
 
 export const createTable = async () => {
   try {
@@ -87,3 +88,31 @@ export const getUserId = async (
     return { success: false, message: "Unknown error occurred" };
   }
 };
+
+export const login = async (username_: string, password_: string): Promise<AuthResponse> => {
+  try {
+    const userRow = await pool.query(
+      "SELECT * FROM users WHERE (username = $1 AND password = $2)", 
+      [username_, password_]
+    )
+
+    if (userRow.rows.length === 0) {
+      return {success:false, message: "user does not exist", user: undefined}
+    }
+    const id = userRow.rows[0].id
+    const email = userRow.rows[0].email
+    const username = username_
+    const location = userRow.rows[0].location
+    const password  = password_
+
+    const loggedinUser: User = {password: password, email: email, username: username, location: location, id: id}
+
+    console.log({password, email, username, location, id})
+    return {success:true, message: "Yayyy", user: loggedinUser}
+
+  }
+  catch(error) {
+    console.log(error)
+    return {success:false, message: "internal server error", user: undefined}
+  }
+}

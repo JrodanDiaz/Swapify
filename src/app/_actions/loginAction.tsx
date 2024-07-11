@@ -4,6 +4,7 @@ import { AuthResponse } from "../_lib/_types/types";
 import { loginBodySchema } from "../_lib/_types/schemas";
 import {login} from "../_lib/_database/queries"
 import { User } from "../_lib/_types/types";
+import setCookie from "./utl/cookies";
 
 
 async function loginServerAction(state: any, formData: FormData): Promise<AuthResponse> 
@@ -22,10 +23,11 @@ async function loginServerAction(state: any, formData: FormData): Promise<AuthRe
 
     const User = await login(registerBody.data.username, registerBody.data.password)
 
-    if (!User.success){
+    if (!User.success || User.user === undefined){
         return { success: false, message: "user does not exist", user: undefined };
     }
-    
+
+    setCookie(User.user.id);
     return { success: true, message: "working", user: User.user };
 }
 

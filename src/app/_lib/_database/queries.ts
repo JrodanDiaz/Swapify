@@ -99,15 +99,15 @@ export const login = async (username_: string, password_: string): Promise<AuthR
     if (userRow.rows.length === 0) {
       return {success:false, message: "user does not exist", user: undefined}
     }
-    const id = userRow.rows[0].id
-    const email = userRow.rows[0].email
-    const username = username_
-    const location = userRow.rows[0].location
-    const password  = password_
 
-    const loggedinUser: User = {password: password, email: email, username: username, location: location, id: id}
+    const loggedinUser: User = {
+      id: userRow.rows[0].id,
+      email: userRow.rows[0].email,
+      username: username_,
+      location: userRow.rows[0].location,
+      password : password_
+    }
 
-    console.log({password, email, username, location, id})
     return {success:true, message: "Yayyy", user: loggedinUser}
 
   }
@@ -115,4 +115,32 @@ export const login = async (username_: string, password_: string): Promise<AuthR
     console.log(error)
     return {success:false, message: "internal server error", user: undefined}
   }
+}
+
+export const getUserFromID = async (id: string): Promise<AuthResponse> => {
+  try {
+    const userRow = await pool.query(
+      "SELECT * FROM users WHERE id = $1)", 
+      [id]
+    )
+
+    if (userRow.rows.length === 0) {
+      return {success:false, message: "user does not exist", user: undefined}
+    }
+    const user: User = {
+      id: id,
+      email: userRow.rows[0].email,
+      username: userRow.rows[0].username,
+      location: userRow.rows[0].location,
+      password: userRow.rows[0].password
+    }
+
+    return {success:true, message: "Yayyy", user: user}
+  }
+
+  catch(error) {
+    console.log(error)
+    return {success: false, message: "internal server error", user: undefined}
+  }
+
 }

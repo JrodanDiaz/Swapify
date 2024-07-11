@@ -136,7 +136,7 @@ const RegisterForm = ({
                     key={`input-${i}`}
                   />
                   {inputError[item.id as keyof RegisterInputs] && (
-                    <p className="text-red-600">
+                    <p key={`error-${i}`} className="text-red-600">
                       {inputError[item.id as keyof RegisterInputs]}
                     </p>
                   )}

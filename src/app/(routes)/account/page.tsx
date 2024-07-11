@@ -35,7 +35,7 @@ export default function AccountPage() {
 
   useEffect(() => {
     if (user.id === "-1") {
-      router.push("/login");
+      // router.push("/login");
     } else {
       setEmail(user.email);
       setUsername(user.username);

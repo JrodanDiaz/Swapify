@@ -4,7 +4,7 @@ import { registerBodySchema } from "../_lib/_types/schemas";
 import { AuthResponse } from "../_lib/_types/types";
 import { User } from "../_lib/_types/types";
 import { cookies } from "next/headers";
-import setCookie from "./utl/cookies";
+import setCookie from "./utils/cookies";
 import {
   createTable,
   createUser,

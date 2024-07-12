@@ -6,7 +6,6 @@ import Slider from "../_components/landingPage/Slider";
 import Footer from "../_components/landingPage/Footer";
 import { UseDarkModeContext } from "../_components/DarkModeContext";
 import { useUserDispatchContext } from "@/app/_lib/_context/UserContext";
-import getUserFromCookie from "../_actions/getUserFromCookieAction";
 
 export default function Home() {
   const darkModeContext = UseDarkModeContext();

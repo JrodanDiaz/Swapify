@@ -1,6 +1,7 @@
 "use client";
-import { SetStateAction, createContext, useContext, useState } from "react";
+import { SetStateAction, createContext, useContext, useEffect, useState } from "react";
 import { User } from "../_types/types";
+import getUserFromCookie from "@/app/_actions/getUserFromCookieAction";
 
 const UserContext = createContext<User | undefined>(undefined);
 const UserDispatchContext = createContext<
@@ -33,6 +34,22 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     location: "",
     password: "",
   });
+
+    useEffect(() => {
+      const getUser = async () => {
+        console.log(`useEffect user before: ${user?.id}`);
+        
+        const userResponse = await getUserFromCookie();
+        if(!userResponse.user) return;
+        setUser(userResponse.user)
+        console.log(`useEffect user after: ${userResponse.user.id}`);
+      }
+
+      if(user && user.id === "-1") {
+        getUser();
+      }
+    }, [user])
+
   return (
     <UserContext.Provider value={user}>
       <UserDispatchContext.Provider value={setUser}>

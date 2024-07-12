@@ -93,6 +93,10 @@ const RegisterForm = ({
     if (serverResponse === null) {
       console.log("Arctic Monkeys #1");
     } else if (serverResponse.success) {
+      console.log(
+        `RegisterForm useEffect User: ${serverResponse.user?.username}`
+      );
+
       setUserContext(serverResponse.user);
     }
   }, [serverResponse, setUserContext]);

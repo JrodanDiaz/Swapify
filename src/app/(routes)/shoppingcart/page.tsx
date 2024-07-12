@@ -6,6 +6,12 @@ import { UseDarkModeContext } from "@/app/_components/DarkModeContext";
 
 export default function ShoppingCart() {
   const DarkModeContext = UseDarkModeContext();
+  // if (userContext.id === "-1") {
+  //   const fetchUser = async () => {
+  //     const user = await fetch("/api/getuser");
+  //     setUser(user);
+  //   };
+  // }
   const { darkMode, setDarkMode } = DarkModeContext;
 
   return (

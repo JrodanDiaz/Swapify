@@ -1,21 +1,20 @@
-import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import type { NextRequest } from "next/server";
 
- 
-export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/account')) {
-    const userCookie = cookies().get("sessionID")
+export async function middleware(request: NextRequest) {
+  const userID = cookies().get("userID");
+  const userSession = cookies().get("userSession");
 
-    console.log("hellllloooooooo")
+  if (userID && userSession) {
+    return NextResponse.next();
+  }
 
-    if (!userCookie) {
-        return NextResponse.redirect(new URL('/login', request.url))
+  if (request.nextUrl.pathname.startsWith("/account")) {
+    if (!userID) {
+      return NextResponse.redirect(new URL("/login", request.url));
     }
 
     return NextResponse.next();
   }
 }
-
-
-export const config = {matcher: "/account"}

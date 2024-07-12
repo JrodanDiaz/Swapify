@@ -5,14 +5,21 @@ import {getUserFromID} from "../_lib/_database/queries"
 import { cookies } from "next/headers";
 
 async function getUserFromCookie(): Promise<AuthResponse> {
+    try 
+    {
+        const cookie = cookies().get("userID")
 
-    const cookie = cookies().get("sessionID")
-    if (!cookie) {
-        return {success: false, message: "cookie does not exist", user: undefined}
+        if (!cookie) return { success: false, message: "cookie does not exist", user: undefined }
+    
+        const userResult = await getUserFromID(cookie.value)
+
+        return {success: true, message: "all works", user: userResult.user}
+    } 
+    catch(err) 
+    {
+        console.log(err);
+        return { success: false, message: "Internal Server Error", user: undefined }
     }
-
-    const userResult = await getUserFromID(cookie.value)
-    return {success: true, message: "all works", user: userResult.user}
 }
 
 export default getUserFromCookie

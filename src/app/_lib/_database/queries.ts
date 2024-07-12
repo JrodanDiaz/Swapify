@@ -1,5 +1,5 @@
 import { pool } from "./PostgresPool";
-import { AsyncFunctionResult, RegisterBody, AuthResponse } from "../_types/types";
+import { AsyncFunctionResult, RegisterBody, AuthResponse, RealUser } from "../_types/types";
 import { ServerResponse } from "../_types/types";
 import { QueryResult } from "pg";
 import { User } from "../_types/types";
@@ -81,7 +81,7 @@ export const getUserId = async (
     const query = "SELECT id FROM users WHERE username = $1";
     const userRow: QueryResult<UserId> = await pool.query(query, [username]);
     if (userRow.rows.length === 0)
-      return { success: false, message: "User does not exist" };
+      return { success: false, message: "User does not exist getUserID" };
     return userRow.rows[0].id.toString();
   } catch (err) {
     console.log(err);
@@ -91,13 +91,13 @@ export const getUserId = async (
 
 export const login = async (username_: string, password_: string): Promise<AuthResponse> => {
   try {
-    const userRow = await pool.query(
-      "SELECT * FROM users WHERE (username = $1 AND password = $2)", 
+    const userRow: QueryResult<RealUser> = await pool.query(
+      "SELECT * FROM users WHERE username = $1 AND password = $2", 
       [username_, password_]
     )
 
     if (userRow.rows.length === 0) {
-      return {success:false, message: "user does not exist", user: undefined}
+      return { success: false, message: "user does not exist loginQuery", user: undefined }
     }
 
     const loggedinUser: User = {
@@ -108,7 +108,7 @@ export const login = async (username_: string, password_: string): Promise<AuthR
       password : password_
     }
 
-    return {success:true, message: "Yayyy", user: loggedinUser}
+    return { success: true, message: "Yayyy", user: loggedinUser }
 
   }
   catch(error) {
@@ -120,12 +120,12 @@ export const login = async (username_: string, password_: string): Promise<AuthR
 export const getUserFromID = async (id: string): Promise<AuthResponse> => {
   try {
     const userRow = await pool.query(
-      "SELECT * FROM users WHERE id = $1)", 
+      "SELECT * FROM users WHERE id = $1", 
       [id]
     )
 
     if (userRow.rows.length === 0) {
-      return {success:false, message: "user does not exist", user: undefined}
+      return {success:false, message: "user does not exist getUserFromId", user: undefined}
     }
     const user: User = {
       id: id,

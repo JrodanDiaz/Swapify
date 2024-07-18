@@ -9,7 +9,6 @@ import { useUserDispatchContext } from "@/app/_lib/_context/UserContext";
 
 export default function Home() {
   const darkModeContext = UseDarkModeContext();
-  const setUserContext = useUserDispatchContext();
   const { darkMode } = darkModeContext;
 
   return (

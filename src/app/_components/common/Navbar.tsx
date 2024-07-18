@@ -70,7 +70,7 @@ const Navbar = () => {
               height="24"
               width="24"
               alt="exit"
-            ></Image>
+            />
             <Link
               className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
               href="/shoppingcart"
@@ -88,14 +88,19 @@ const Navbar = () => {
               height="300"
               width="30"
               alt="shopping bag"
-            ></Image>
-            <Image
-              className="hidden md:block cursor-pointer"
-              src="/user-dark.svg"
-              height="300"
-              width="30"
-              alt="user"
-            ></Image>
+            />
+            <Link
+              href="/account"
+              className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
+            >
+              <Image
+                className="cursor-pointer"
+                src="/user-dark.svg"
+                height="300"
+                width="30"
+                alt="user"
+              />
+            </Link>
             <Image
               onClick={toggleDarkMode}
               className="hidden md:block cursor-pointer"

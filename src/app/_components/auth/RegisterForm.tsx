@@ -93,6 +93,10 @@ const RegisterForm = ({
     if (serverResponse === null) {
       console.log("Arctic Monkeys #1");
     } else if (serverResponse.success) {
+      console.log(
+        `RegisterForm useEffect User: ${serverResponse.user?.username}`
+      );
+
       setUserContext(serverResponse.user);
     }
   }, [serverResponse, setUserContext]);
@@ -136,7 +140,7 @@ const RegisterForm = ({
                     key={`input-${i}`}
                   />
                   {inputError[item.id as keyof RegisterInputs] && (
-                    <p className="text-red-600">
+                    <p key={`error-${i}`} className="text-red-600">
                       {inputError[item.id as keyof RegisterInputs]}
                     </p>
                   )}

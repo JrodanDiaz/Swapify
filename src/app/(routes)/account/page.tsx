@@ -7,24 +7,26 @@ import {
   useUserDispatchContext,
 } from "../../_lib/_context/UserContext";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 import updateUserAction from "@/app/_actions/updateUserAction";
+import { RegisterBody } from "@/app/_lib/_types/types";
 
 export default function AccountPage() {
-  const user = useUserContext();
+  const userContext = useUserContext();
   const updateUserContext = useUserDispatchContext();
-  const router = useRouter();
 
-  const [email, setEmail] = useState(user.email);
-  const [username, setUsername] = useState(user.username);
-  const [password, setPassword] = useState(user.password);
-  const [location, setLocation] = useState(user.location);
+  const [user, setUser] = useState<RegisterBody>({
+    email: userContext.email,
+    username: userContext.username,
+    password: userContext.password,
+    location: userContext.location,
+  });
 
   const [formState, updateAction] = useFormState(updateUserAction, null);
 
   useEffect(() => {
     if (formState === null) return;
+
     if (formState.success) {
       updateUserContext(formState.user);
       console.log(formState.message);
@@ -34,15 +36,13 @@ export default function AccountPage() {
   }, [formState, updateUserContext]);
 
   useEffect(() => {
-    if (user.id === "-1") {
-      router.push("/login");
-    } else {
-      setEmail(user.email);
-      setUsername(user.username);
-      setPassword(user.password);
-      setLocation(user.location);
-    }
-  }, [user]);
+    setUser({
+      email: userContext.email,
+      username: userContext.username,
+      password: userContext.password,
+      location: userContext.location,
+    });
+  }, [userContext]);
 
   const defaultImage = "/pfp.png";
   const [selectedImage, setSelectedImage] = useState<string | null>(
@@ -72,16 +72,10 @@ export default function AccountPage() {
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === "email") {
-      setEmail(e.target.value);
-    } else if (e.target.id === "username") {
-      setUsername(e.target.value);
-    } else if (e.target.id === "location") {
-      setLocation(e.target.value);
-    } else if (e.target.id === "password") {
-      setPassword(e.target.value);
-    }
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
   };
+
   return (
     <>
       <Navbar />
@@ -89,7 +83,7 @@ export default function AccountPage() {
         <Sidebar />
         <div className="border-blue-600 border-2 w-3/5 flex flex-wrap justify-around">
           <form action={updateAction} className="flex flex-col">
-            <input type="hidden" name="id" value={user.id} />
+            <input type="hidden" name="id" value={userContext.id} />
             <label htmlFor="username" className="font-semibold">
               Email
             </label>
@@ -98,7 +92,7 @@ export default function AccountPage() {
               name="email"
               id="email"
               className="border-black border-[1px] px-3 py-2 mb-6"
-              value={email}
+              value={user.email}
               onChange={onInputChange}
             />
             <label htmlFor="username" className="font-semibold">
@@ -109,7 +103,7 @@ export default function AccountPage() {
               name="username"
               id="username"
               className="border-black border-[1px] px-3 py-2 mb-6"
-              value={username}
+              value={user.username}
               onChange={onInputChange}
             />
             <label htmlFor="location" className="font-semibold">
@@ -120,7 +114,7 @@ export default function AccountPage() {
               name="location"
               id="location"
               className="border-black border-[1px] px-3 py-2 mb-6"
-              value={location}
+              value={user.location}
               onChange={onInputChange}
             />
             <label htmlFor="password" className="font-semibold">
@@ -130,7 +124,7 @@ export default function AccountPage() {
               type="password"
               name="password"
               id="password"
-              value={password}
+              value={user.password}
               onChange={onInputChange}
               className="border-black border-[1px] px-3 py-2 mb-2"
             />

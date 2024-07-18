@@ -1,5 +1,5 @@
 import { pool } from "./PostgresPool";
-import { AsyncFunctionResult, RegisterBody, AuthResponse } from "../_types/types";
+import { AsyncFunctionResult, RegisterBody, AuthResponse, RealUser } from "../_types/types";
 import { ServerResponse } from "../_types/types";
 import { QueryResult } from "pg";
 import { User } from "../_types/types";
@@ -81,7 +81,7 @@ export const getUserId = async (
     const query = "SELECT id FROM users WHERE username = $1";
     const userRow: QueryResult<UserId> = await pool.query(query, [username]);
     if (userRow.rows.length === 0)
-      return { success: false, message: "User does not exist" };
+      return { success: false, message: "User does not exist getUserID" };
     return userRow.rows[0].id.toString();
   } catch (err) {
     console.log(err);
@@ -91,28 +91,56 @@ export const getUserId = async (
 
 export const login = async (username_: string, password_: string): Promise<AuthResponse> => {
   try {
-    const userRow = await pool.query(
-      "SELECT * FROM users WHERE (username = $1 AND password = $2)", 
+    const userRow: QueryResult<RealUser> = await pool.query(
+      "SELECT * FROM users WHERE username = $1 AND password = $2", 
       [username_, password_]
     )
 
     if (userRow.rows.length === 0) {
-      return {success:false, message: "user does not exist", user: undefined}
+      return { success: false, message: "user does not exist loginQuery", user: undefined }
     }
-    const id = userRow.rows[0].id
-    const email = userRow.rows[0].email
-    const username = username_
-    const location = userRow.rows[0].location
-    const password  = password_
 
-    const loggedinUser: User = {password: password, email: email, username: username, location: location, id: id}
+    const loggedinUser: User = {
+      id: userRow.rows[0].id,
+      email: userRow.rows[0].email,
+      username: username_,
+      location: userRow.rows[0].location,
+      password : password_
+    }
 
-    console.log({password, email, username, location, id})
-    return {success:true, message: "Yayyy", user: loggedinUser}
+    return { success: true, message: "Yayyy", user: loggedinUser }
 
   }
   catch(error) {
     console.log(error)
     return {success:false, message: "internal server error", user: undefined}
   }
+}
+
+export const getUserFromID = async (id: string): Promise<AuthResponse> => {
+  try {
+    const userRow = await pool.query(
+      "SELECT * FROM users WHERE id = $1", 
+      [id]
+    )
+
+    if (userRow.rows.length === 0) {
+      return {success:false, message: "user does not exist getUserFromId", user: undefined}
+    }
+    const user: User = {
+      id: id,
+      email: userRow.rows[0].email,
+      username: userRow.rows[0].username,
+      location: userRow.rows[0].location,
+      password: userRow.rows[0].password
+    }
+
+    return {success:true, message: "Yayyy", user: user}
+  }
+
+  catch(error) {
+    console.log(error)
+    return {success: false, message: "internal server error", user: undefined}
+  }
+
 }

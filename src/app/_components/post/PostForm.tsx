@@ -46,6 +46,11 @@ export default function FormPost() {
     setCurrentImage(parseInt(target.id));
   };
 
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    setImages({ ...images, [target.id]: defaultImage });
+  };
+
   useEffect(() => {
     for (const [id, image] of Object.entries(images)) {
       if (image === defaultImage) {
@@ -134,6 +139,13 @@ export default function FormPost() {
                   className="bg-black text-orange-500 font-bold text-xl border-2 border-orange-500 px-3 py-1"
                 >
                   EDIT
+                </button>
+                <button
+                  onClick={handleDelete}
+                  id={id}
+                  className="bg-black text-red-500 font-bold text-xl border-2 border-red-500 px-3 py-1"
+                >
+                  DEL
                 </button>
               </div>
             </div>

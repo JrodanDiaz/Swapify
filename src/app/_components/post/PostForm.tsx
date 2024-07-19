@@ -5,12 +5,18 @@ import Image from "next/image";
 
 export default function FormPost() {
   const defaultImage = "/pfp.png";
-  const [selectedImageOne, setSelectedImageOne] =
-    useState<string>(defaultImage);
-  const [selectedImageTwo, setSelectedImageTwo] =
-    useState<string>(defaultImage);
-  const [selectedImageThree, setSelectedImageThree] =
-    useState<string>(defaultImage);
+  // const [selectedImageOne, setSelectedImageOne] =
+  //   useState<string>(defaultImage);
+  // const [selectedImageTwo, setSelectedImageTwo] =
+  //   useState<string>(defaultImage);
+  // const [selectedImageThree, setSelectedImageThree] =
+  //   useState<string>(defaultImage);
+
+  const [images, setImages] = useState({
+    1: defaultImage,
+    2: defaultImage,
+    3: defaultImage,
+  });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [currentImage, setCurrentImage] = useState<number>(1);
@@ -28,13 +34,14 @@ export default function FormPost() {
       const reader = new FileReader();
       //set event listener, once reader is finished loading, setSelectedImage to image base64 string
       reader.onloadend = () => {
-        if (currentImage == 1) {
-          setSelectedImageOne(reader.result as string);
-        } else if (currentImage == 2) {
-          setSelectedImageTwo(reader.result as string);
-        } else if (currentImage == 3) {
-          setSelectedImageThree(reader.result as string);
-        }
+        // if (currentImage == 1) {
+        //   setSelectedImageOne(reader.result as string);
+        // } else if (currentImage == 2) {
+        //   setSelectedImageTwo(reader.result as string);
+        // } else if (currentImage == 3) {
+        //   setSelectedImageThree(reader.result as string);
+        // }
+        setImages({ ...images, [id]: reader.result as string });
       };
       //the async event that converts the image to base64, where its stored in reader.result
       reader.readAsDataURL(file);
@@ -62,11 +69,23 @@ export default function FormPost() {
           className="hidden"
         />
 
-        <input
+        {Object.entries(images).map(([id, image]) => (
+          <>
+            <input
+              type="text"
+              className="hidden"
+              name={`image-${id}`}
+              value={image}
+              readOnly={true}
+            />
+          </>
+        ))}
+
+        {/* <input
           type="string"
           className="hidden"
           value={selectedImageOne ? selectedImageOne : ""}
-          name="imageOne"
+          name="f"
           readOnly={true}
         />
 
@@ -84,7 +103,7 @@ export default function FormPost() {
           value={selectedImageThree ? selectedImageThree : ""}
           name="imageThree"
           readOnly={true}
-        />
+        /> */}
 
         <button
           className="px-4 py-2 bg-black text-white rounded-full"
@@ -130,7 +149,23 @@ export default function FormPost() {
       </form>
 
       <div className="flex">
-        <div className="w-[200px] h-[200px] relative">
+        {Object.entries(images).map(([id, image]) => (
+          <>
+            <div className="w-[200px] h-[200px] relative">
+              <Image src={image} alt="clothing image" layout="fill"></Image>
+              <div className="z-20 absolute opacity-0 w-full h-full hover:opacity-100 flex justify-center items-center">
+                <button
+                  onClick={handleButtonClick}
+                  id={id}
+                  className="bg-black text-orange-500 font-bold text-xl border-2 border-orange-500 px-3 py-1"
+                >
+                  EDIT
+                </button>
+              </div>
+            </div>
+          </>
+        ))}
+        {/* <div className="w-[200px] h-[200px] relative">
           <Image src={selectedImageOne} alt="imageOne" layout="fill"></Image>
           <div className="z-20 absolute opacity-0 w-full h-full hover:opacity-100 flex justify-center items-center">
             <button
@@ -168,12 +203,11 @@ export default function FormPost() {
               DEL
             </button>
           </div>
-        </div>
+        </div> */}
         `
       </div>
 
-      {selectedImageOne}
-      {currentImage}
+      <p>{currentImage}</p>
     </>
   );
 }

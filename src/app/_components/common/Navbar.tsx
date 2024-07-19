@@ -93,6 +93,7 @@ const Navbar = () => {
               href="/account"
               className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
             >
+              <Link href="/post">Post</Link>
               <Image
                 className="cursor-pointer"
                 src="/user-dark.svg"
@@ -156,6 +157,8 @@ const Navbar = () => {
               width="30"
               alt="shopping bag"
             ></Image>
+            <Link href="/post">Post</Link>
+
             <Link
               href="/account"
               className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"

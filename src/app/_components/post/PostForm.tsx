@@ -1,22 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export default function FormPost() {
   const defaultImage = "/pfp.png";
-  // const [selectedImageOne, setSelectedImageOne] =
-  //   useState<string>(defaultImage);
-  // const [selectedImageTwo, setSelectedImageTwo] =
-  //   useState<string>(defaultImage);
-  // const [selectedImageThree, setSelectedImageThree] =
-  //   useState<string>(defaultImage);
 
   const [images, setImages] = useState({
     1: defaultImage,
     2: defaultImage,
     3: defaultImage,
   });
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [currentImage, setCurrentImage] = useState<number>(1);
@@ -34,13 +29,6 @@ export default function FormPost() {
       const reader = new FileReader();
       //set event listener, once reader is finished loading, setSelectedImage to image base64 string
       reader.onloadend = () => {
-        // if (currentImage == 1) {
-        //   setSelectedImageOne(reader.result as string);
-        // } else if (currentImage == 2) {
-        //   setSelectedImageTwo(reader.result as string);
-        // } else if (currentImage == 3) {
-        //   setSelectedImageThree(reader.result as string);
-        // }
         setImages({ ...images, [id]: reader.result as string });
       };
       //the async event that converts the image to base64, where its stored in reader.result
@@ -58,6 +46,15 @@ export default function FormPost() {
     setCurrentImage(parseInt(target.id));
   };
 
+  useEffect(() => {
+    for (const [id, image] of Object.entries(images)) {
+      if (image === defaultImage) {
+        setCurrentImage(parseInt(id));
+        return;
+      }
+    }
+  }, [images]);
+
   return (
     <>
       <form className="flex flex-col gap-5 border-2 border-black items-center pt-10">
@@ -73,6 +70,7 @@ export default function FormPost() {
           <>
             <input
               type="text"
+              key={`image-${id}`}
               className="hidden"
               name={`image-${id}`}
               value={image}
@@ -80,30 +78,6 @@ export default function FormPost() {
             />
           </>
         ))}
-
-        {/* <input
-          type="string"
-          className="hidden"
-          value={selectedImageOne ? selectedImageOne : ""}
-          name="f"
-          readOnly={true}
-        />
-
-        <input
-          type="string"
-          className="hidden"
-          value={selectedImageTwo ? selectedImageTwo : ""}
-          name="imageTwo"
-          readOnly={true}
-        />
-
-        <input
-          type="string"
-          className="hidden"
-          value={selectedImageThree ? selectedImageThree : ""}
-          name="imageThree"
-          readOnly={true}
-        /> */}
 
         <button
           className="px-4 py-2 bg-black text-white rounded-full"
@@ -165,46 +139,6 @@ export default function FormPost() {
             </div>
           </>
         ))}
-        {/* <div className="w-[200px] h-[200px] relative">
-          <Image src={selectedImageOne} alt="imageOne" layout="fill"></Image>
-          <div className="z-20 absolute opacity-0 w-full h-full hover:opacity-100 flex justify-center items-center">
-            <button
-              onClick={handleButtonClick}
-              id="1"
-              className="bg-black text-orange-500 font-bold text-xl border-2 border-orange-500 px-3 py-1"
-            >
-              EDIT
-            </button>
-          </div>
-        </div>
-        <div className="w-[200px] h-[200px] relative">
-          <Image src={selectedImageTwo} alt="imageOne" layout="fill"></Image>
-          <div className="z-20 absolute opacity-0 w-full h-full hover:opacity-100 flex justify-center items-center">
-            <button
-              onClick={handleButtonClick}
-              id="2"
-              className="bg-black text-orange-500 font-bold text-xl border-2 border-orange-500 px-3 py-1"
-            >
-              EDIT
-            </button>
-          </div>
-        </div>
-        <div className="w-[200px] h-[200px] relative">
-          <Image src={selectedImageThree} alt="imageOne" layout="fill"></Image>
-          <div className="z-20 absolute opacity-0 w-full h-full hover:opacity-100 flex justify-center items-center">
-            <button
-              onClick={handleButtonClick}
-              id="3"
-              className="bg-black text-orange-500 font-bold text-xl border-2 border-orange-500 px-3 py-1"
-            >
-              EDIT
-            </button>
-            <button className="bg-black text-orange-500 font-bold text-xl border-2 border-red-500 px-3 py-1">
-              DEL
-            </button>
-          </div>
-        </div> */}
-        `
       </div>
 
       <p>{currentImage}</p>

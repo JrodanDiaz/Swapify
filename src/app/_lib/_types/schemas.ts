@@ -19,3 +19,15 @@ export const userBodySchema = z.object({
   location: z.string().min(1), 
   password: z.string().min(1), 
 })
+
+export const postBodySchema = z.object({
+  id: z.string().min(1), 
+  title: z.string().min(1), 
+  size: z.string().min(1), 
+  description: z.string().min(1), 
+  swap: z.string().min(1), 
+  condition: z.string().min(1), 
+  imageOne: z.string().min(1),
+  imageTwo: z.string().min(1).optional(), 
+  imageThree: z.string().min(1).optional()
+})

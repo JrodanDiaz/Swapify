@@ -15,6 +15,7 @@ export const createTable = async () => {
   }
 };
 
+
 export const createUser = async (user: RegisterBody) => {
   try {
     const res = await pool.query(

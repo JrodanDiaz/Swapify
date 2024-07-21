@@ -49,6 +49,20 @@ export default function FormPost() {
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     setImages({ ...images, [target.id]: defaultImage });
+
+    const values = Object.values(images)
+    for (let i = 0; i <  values.length - 1; i++) {
+      if (values[i] === defaultImage && values[i+1] != defaultImage) {
+        values[i] = values[i+1]
+        values[i+1] = defaultImage
+      }
+    }
+    console.log(values)
+    setImages({
+      1: values[0], 
+      2: values[1], 
+      3: values[2]
+    })
   };
 
   useEffect(() => {
@@ -132,7 +146,9 @@ export default function FormPost() {
           <>
             <div className="w-[200px] h-[200px] relative">
               <Image src={image} alt="clothing image" layout="fill"></Image>
-              <div className="z-20 absolute opacity-0 w-full h-full hover:opacity-100 flex justify-center items-center">
+
+              {image !== defaultImage && 
+                <div className="z-20 absolute opacity-0 w-full h-full hover:opacity-100 flex justify-center items-center">
                 <button
                   onClick={handleButtonClick}
                   id={id}
@@ -148,6 +164,8 @@ export default function FormPost() {
                   DEL
                 </button>
               </div>
+              }
+              
             </div>
           </>
         ))}

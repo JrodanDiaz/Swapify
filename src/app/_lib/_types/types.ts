@@ -58,3 +58,15 @@ export type AsyncFunctionResult<T extends {}> = {
     success: boolean;
 } & T;
 
+export type Listing = {
+  id: string, 
+  title: string,
+  size: string,
+  description: string,
+  swap: string, 
+  condition: string, 
+  imageOne: string, 
+  imageTwo: string | null, 
+  imageThree: string | null 
+}
+

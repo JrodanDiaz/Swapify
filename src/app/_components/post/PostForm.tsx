@@ -46,23 +46,29 @@ export default function FormPost() {
     setCurrentImage(parseInt(target.id));
   };
 
+  useEffect(() => {
+    const values = Object.values(images);
+    console.log("Before Iteration");
+    console.log(values);
+
+    for (let i = 0; i < values.length - 1; i++) {
+      if (values[i] === defaultImage && values[i + 1] != defaultImage) {
+        values[i] = values[i + 1];
+        values[i + 1] = defaultImage;
+        setImages({
+          1: values[0],
+          2: values[1],
+          3: values[2],
+        });
+      }
+    }
+    console.log("After Iteration");
+    console.log(values);
+  }, [images]);
+
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     setImages({ ...images, [target.id]: defaultImage });
-
-    const values = Object.values(images)
-    for (let i = 0; i <  values.length - 1; i++) {
-      if (values[i] === defaultImage && values[i+1] != defaultImage) {
-        values[i] = values[i+1]
-        values[i+1] = defaultImage
-      }
-    }
-    console.log(values)
-    setImages({
-      1: values[0], 
-      2: values[1], 
-      3: values[2]
-    })
   };
 
   useEffect(() => {
@@ -147,25 +153,24 @@ export default function FormPost() {
             <div className="w-[200px] h-[200px] relative">
               <Image src={image} alt="clothing image" layout="fill"></Image>
 
-              {image !== defaultImage && 
+              {image !== defaultImage && (
                 <div className="z-20 absolute opacity-0 w-full h-full hover:opacity-100 flex justify-center items-center">
-                <button
-                  onClick={handleButtonClick}
-                  id={id}
-                  className="bg-black text-orange-500 font-bold text-xl border-2 border-orange-500 px-3 py-1"
-                >
-                  EDIT
-                </button>
-                <button
-                  onClick={handleDelete}
-                  id={id}
-                  className="bg-black text-red-500 font-bold text-xl border-2 border-red-500 px-3 py-1"
-                >
-                  DEL
-                </button>
-              </div>
-              }
-              
+                  <button
+                    onClick={handleButtonClick}
+                    id={id}
+                    className="bg-black text-orange-500 font-bold text-xl border-2 border-orange-500 px-3 py-1"
+                  >
+                    EDIT
+                  </button>
+                  <button
+                    onClick={handleDelete}
+                    id={id}
+                    className="bg-black text-red-500 font-bold text-xl border-2 border-red-500 px-3 py-1"
+                  >
+                    DEL
+                  </button>
+                </div>
+              )}
             </div>
           </>
         ))}

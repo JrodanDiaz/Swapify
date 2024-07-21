@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useFormState } from "react-dom";
+import postAction from "@/app/_actions/postListingAction";
 
 export default function FormPost() {
   const defaultImage = "/pfp.png";
@@ -48,8 +50,6 @@ export default function FormPost() {
 
   useEffect(() => {
     const values = Object.values(images);
-    console.log("Before Iteration");
-    console.log(values);
 
     for (let i = 0; i < values.length - 1; i++) {
       if (values[i] === defaultImage && values[i + 1] != defaultImage) {
@@ -62,8 +62,6 @@ export default function FormPost() {
         });
       }
     }
-    console.log("After Iteration");
-    console.log(values);
   }, [images]);
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -80,9 +78,18 @@ export default function FormPost() {
     }
   }, [images]);
 
+  const [formState, postListing] = useFormState(postAction, null);
+
+  useEffect(() => {
+    console.log(formState?.message);
+  }, [formState]);
+
   return (
     <>
-      <form className="flex flex-col gap-5 border-2 border-black items-center pt-10">
+      <form
+        action={postListing}
+        className="flex flex-col gap-5 border-2 border-black items-center pt-10"
+      >
         <input
           type="file"
           accept="image/*"

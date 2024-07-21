@@ -11,12 +11,12 @@ async function postAction(state: any, formData: FormData): Promise<ServerRespons
         description: formData.get("description") as string,
         swap: formData.get("swap") as string, 
         condition: formData.get("condition") as string, 
-        imageOne: formData.get("imageOne") as string, 
-        imageTwo: formData.get("imageTwo") as string, 
-        imageThree: formData.get("imageThree") as string, 
+        imageOne: formData.get("image-1") as string, 
+        imageTwo: formData.get("image-2") as string, 
+        imageThree: formData.get("image-3") as string, 
 
     })
-    try{
+try{
         if (!postBody.success) {
             return {success: false, message: "invalid form data"}
         }
@@ -31,7 +31,8 @@ async function postAction(state: any, formData: FormData): Promise<ServerRespons
         if (!post.success) {
             return {success: false, message: "postAction faild"}
         }
-
+        console.log(postBody.data);
+        
         return {success: true, message: "postAction success"}
 
     }
@@ -41,3 +42,5 @@ async function postAction(state: any, formData: FormData): Promise<ServerRespons
     }
 
 }
+
+export default postAction

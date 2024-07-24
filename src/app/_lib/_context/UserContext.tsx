@@ -33,6 +33,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     username: "",
     location: "",
     password: "",
+    pfp: ""
   });
 
     useEffect(() => {

@@ -33,8 +33,7 @@ export type ServerResponse = {
 };
 
 export type User = z.infer<typeof userBodySchema> | undefined
-
-export type RealUser = z.infer<typeof userBodySchema>
+export type UserBody = z.infer<typeof userBodySchema>
 
 export type AuthResponse = {
   success: boolean;

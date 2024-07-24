@@ -4,9 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useFormState } from "react-dom";
 import postAction from "@/app/_actions/postListingAction";
+import { useUserContext } from "@/app/_lib/_context/UserContext";
 
 export default function FormPost() {
   const defaultImage = "/pfp.png";
+  const user = useUserContext();
 
   const [images, setImages] = useState({
     1: defaultImage,
@@ -81,7 +83,9 @@ export default function FormPost() {
   const [formState, postListing] = useFormState(postAction, null);
 
   useEffect(() => {
-    console.log(formState?.message);
+    if (formState !== null) {
+      console.log(formState?.message);
+    }
   }, [formState]);
 
   return (
@@ -90,6 +94,13 @@ export default function FormPost() {
         action={postListing}
         className="flex flex-col gap-5 border-2 border-black items-center pt-10"
       >
+        <input
+          type="text"
+          name="id"
+          value={user.id}
+          readOnly={true}
+          hidden={true}
+        />
         <input
           type="file"
           accept="image/*"

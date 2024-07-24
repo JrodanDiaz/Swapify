@@ -25,6 +25,8 @@ async function registerServerAction(state: any, formData: FormData): Promise<Aut
     console.log("invalid form input");
     return { success: false, message: "Invalid form input", user: undefined };
   }
+  
+  await createTable();
 
   const {success, userExists} = await userAlreadyExist(registerBody.data.username, registerBody.data.email)
   
@@ -34,8 +36,6 @@ async function registerServerAction(state: any, formData: FormData): Promise<Aut
     console.log(`Error: User ${registerBody.data.username} already exists`);
     return { success: false, message: "User Already Exists", user: undefined}
   }
-
-  await createTable();
 
   await createUser(registerBody.data);
 

@@ -1,5 +1,6 @@
 "use client";
 import { getUsersAction } from "@/app/_actions/AdminActions";
+import { getPostsAction } from "@/app/_actions/AdminActions";
 import CornerButton from "@/app/_components/common/CornerButton";
 import { useRouter } from "next/navigation";
 export default function AdminBoard() {
@@ -24,7 +25,15 @@ export default function AdminBoard() {
               type="submit"
               className="w-full bg-orange-600 border-black border-[1px] text-black rounded-sm px-4 py-2 mb-2"
             >
-              Print Table to Console
+              Print Users Table to Console
+            </button>
+          </form>
+          <form action={getPostsAction}>
+            <button
+              type="submit"
+              className="w-full bg-orange-600 border-black border-[1px] text-black rounded-sm px-4 py-2 mb-2"
+            >
+              Print Posts Table to Console
             </button>
           </form>
         </div>

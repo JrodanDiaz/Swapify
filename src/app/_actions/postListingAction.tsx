@@ -1,3 +1,4 @@
+"use server"
 import {createPostTable, postListing} from "../_lib/_database/postQueries"
 import { postBodySchema } from "../_lib/_types/schemas"
 import { ServerResponse } from "../_lib/_types/types"
@@ -11,12 +12,14 @@ async function postAction(state: any, formData: FormData): Promise<ServerRespons
         description: formData.get("description") as string,
         swap: formData.get("swap") as string, 
         condition: formData.get("condition") as string, 
-        imageOne: formData.get("image-1") as string, 
-        imageTwo: formData.get("image-2") as string, 
-        imageThree: formData.get("image-3") as string, 
+        imageOne: formData.get("image-1") as string || "defaultImage.png", 
+        // imageTwo: formData.get("image-2") as string || "defaultImage.png", 
+        // imageThree: formData.get("image-3") as string || "defaultImage.png", 
+        imageTwo: "defaultImage.png", 
+        imageThree: "defaultImage.png"
 
     })
-try{
+        try{
         if (!postBody.success) {
             return {success: false, message: "invalid form data"}
         }
@@ -29,7 +32,7 @@ try{
         const post = await postListing(postBody.data)
 
         if (!post.success) {
-            return {success: false, message: "postAction faild"}
+            return {success: false, message: "postAction postListing failed"}
         }
         console.log(postBody.data);
         
@@ -38,9 +41,8 @@ try{
     }
     catch(error) {
         console.log(error)
-        return {success: false, message: "postAction faild"}
+        return {success: false, message: "postAction failed error catch"}
     }
-
 }
 
 export default postAction

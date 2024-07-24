@@ -1,13 +1,12 @@
 import { pool } from "./PostgresPool";
-import { AsyncFunctionResult, RegisterBody, AuthResponse, RealUser } from "../_types/types";
+import { AsyncFunctionResult, RegisterBody, AuthResponse, User, UserBody } from "../_types/types";
 import { ServerResponse } from "../_types/types";
 import { QueryResult } from "pg";
-import { User } from "../_types/types";
 
 export const createTable = async () => {
   try {
     const res = await pool.query(
-      "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, email VARCHAR(100) NOT NULL, username VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL)"
+      "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, email VARCHAR(100) NOT NULL, username VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, pfp TEXT)"
     );
   } catch (err) {
     console.log("CreateTable Failed");
@@ -61,13 +60,21 @@ export const userAlreadyExist = async (userName: string, email: string, id?: str
   }
 };
 
-export const updateUser = async (user: RegisterBody, id: string): Promise<AsyncFunctionResult<{}>> => {
+export const updateUser = async (user: UserBody): Promise<AsyncFunctionResult<{}>> => {
   try {
-    const res = await pool.query(
-      "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE id = $5",
-      [user.email, user.username, user.password, user.location, id]
-    );
+
+    let query = "UPDATE users SET email = $1, username = $2, password = $3, location = $4 WHERE id = $5"
+    let values = [user.email, user.username, user.password, user.location, user.id] 
+
+    if(user.pfp) {
+      query = "UPDATE users SET email = $1, username = $2, password = $3, location = $4, pfp = $5 WHERE id = $6" 
+      values = [user.email, user.username, user.password, user.location, user.pfp, user.id] 
+    }
+
+    const res = await pool.query(query, values);
+
     return {success: true}
+
   } catch (error) {
     console.log("ur mom", error);
     return {success: false}
@@ -92,7 +99,7 @@ export const getUserId = async (
 
 export const login = async (username_: string, password_: string): Promise<AuthResponse> => {
   try {
-    const userRow: QueryResult<RealUser> = await pool.query(
+    const userRow: QueryResult<UserBody> = await pool.query(
       "SELECT * FROM users WHERE username = $1 AND password = $2", 
       [username_, password_]
     )
@@ -106,8 +113,13 @@ export const login = async (username_: string, password_: string): Promise<AuthR
       email: userRow.rows[0].email,
       username: username_,
       location: userRow.rows[0].location,
-      password : password_
+      password : password_,
+      pfp: userRow.rows[0].pfp || null
     }
+    console.log(loggedinUser);
+    console.log("in login");
+    
+    
 
     return { success: true, message: "Yayyy", user: loggedinUser }
 
@@ -120,7 +132,7 @@ export const login = async (username_: string, password_: string): Promise<AuthR
 
 export const getUserFromID = async (id: string): Promise<AuthResponse> => {
   try {
-    const userRow = await pool.query(
+    const userRow: QueryResult<UserBody> = await pool.query(
       "SELECT * FROM users WHERE id = $1", 
       [id]
     )
@@ -133,7 +145,8 @@ export const getUserFromID = async (id: string): Promise<AuthResponse> => {
       email: userRow.rows[0].email,
       username: userRow.rows[0].username,
       location: userRow.rows[0].location,
-      password: userRow.rows[0].password
+      password: userRow.rows[0].password,
+      pfp: userRow.rows[0].pfp
     }
 
     return {success:true, message: "Yayyy", user: user}

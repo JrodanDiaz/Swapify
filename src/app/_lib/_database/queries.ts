@@ -116,11 +116,6 @@ export const login = async (username_: string, password_: string): Promise<AuthR
       password : password_,
       pfp: userRow.rows[0].pfp || null
     }
-    console.log(loggedinUser);
-    console.log("in login");
-    
-    
-
     return { success: true, message: "Yayyy", user: loggedinUser }
 
   }

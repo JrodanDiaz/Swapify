@@ -1,5 +1,6 @@
 import { pool } from "./PostgresPool";
-import { ServerResponse, Listing } from "../_types/types";
+import { ServerResponse, Listing, ListingDB } from "../_types/types";
+import { QueryResult } from "pg";
 
   export const createPostTable = async () => {
     try {
@@ -44,6 +45,22 @@ import { ServerResponse, Listing } from "../_types/types";
 
     }
   }
+
+  export const getListingsForUser = async (id: string) => {
+    try {
+      const listings: QueryResult<ListingDB> = await pool.query("SELECT * FROM posts WHERE id = $1", 
+        [id]
+      );
+      if (listings.rows.length < 1) {
+        return null
+      }
+      return listings.rows;
+
+    } catch (err) {
+      console.log("get listings failed");
+      console.log(err);
+    }
+  };
 
 
 

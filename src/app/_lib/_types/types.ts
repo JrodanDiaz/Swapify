@@ -69,3 +69,13 @@ export type Listing = {
   imageThree: string | null 
 }
 
+export type ListingDB = {
+  id: string, 
+  title: string,
+  size: string,
+  description: string,
+  swap: string, 
+  condition: string, 
+  images: string[]
+}
+

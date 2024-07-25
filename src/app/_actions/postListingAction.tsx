@@ -13,10 +13,8 @@ async function postAction(state: any, formData: FormData): Promise<ServerRespons
         swap: formData.get("swap") as string, 
         condition: formData.get("condition") as string, 
         imageOne: formData.get("image-1") as string || "defaultImage.png", 
-        // imageTwo: formData.get("image-2") as string || "defaultImage.png", 
-        // imageThree: formData.get("image-3") as string || "defaultImage.png", 
-        imageTwo: "defaultImage.png", 
-        imageThree: "defaultImage.png"
+        imageTwo: formData.get("image-2") as string || "defaultImage.png", 
+        imageThree: formData.get("image-3") as string || "defaultImage.png", 
 
     })
         try{

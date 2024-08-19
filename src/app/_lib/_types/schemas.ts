@@ -29,6 +29,6 @@ export const postBodySchema = z.object({
   swap: z.string().min(1), 
   condition: z.string().min(1), 
   imageOne: z.string().min(1),
-  imageTwo: z.string().min(1), 
-  imageThree: z.string().min(1)
+  imageTwo: z.string().min(1).nullable(), 
+  imageThree: z.string().min(1).nullable()
 })

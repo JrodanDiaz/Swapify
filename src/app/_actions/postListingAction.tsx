@@ -12,13 +12,13 @@ async function postAction(state: any, formData: FormData): Promise<ServerRespons
         description: formData.get("description") as string,
         swap: formData.get("swap") as string, 
         condition: formData.get("condition") as string, 
-        imageOne: formData.get("image-1") as string || "defaultImage.png", 
-        imageTwo: formData.get("image-2") as string || "defaultImage.png", 
-        imageThree: formData.get("image-3") as string || "defaultImage.png", 
+        imageOne: formData.get("image-1") as string, 
+        imageTwo: formData.get("image-2") as string || null,
+        imageThree: formData.get("image-3") as string || null, 
 
     })
         try{
-        if (!postBody.success) {
+        if (!postBody.success || postBody.data.imageOne == "/pfp.png") {
             return {success: false, message: "invalid form data"}
         }
 

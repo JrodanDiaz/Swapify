@@ -45,7 +45,7 @@ const Navbar = () => {
         </div>
 
         {darkMode ? (
-          <div className="flex flex-row gap-6 pr-4">
+          <div className="border-2 border-red flex flex-row gap-6 pr-10">
             <Image
               className="sm:hidden"
               src="/search-dark.svg"
@@ -92,8 +92,7 @@ const Navbar = () => {
             <Link
               href="/account"
               className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
-            >
-              <Link href="/post">Post</Link>
+            >            
               <Image
                 className="cursor-pointer"
                 src="/user-dark.svg"
@@ -102,6 +101,17 @@ const Navbar = () => {
                 alt="user"
               />
             </Link>
+            <Link 
+             href="/listings"
+             className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]">
+            <Image
+                className="hidden md:block cursor-pointer"
+                src="/plus-square-dark.svg"
+                layout="fill"
+                alt="user"
+              ></Image>  
+            </Link>
+   
             <Image
               onClick={toggleDarkMode}
               className="hidden md:block cursor-pointer"
@@ -112,7 +122,7 @@ const Navbar = () => {
             ></Image>
           </div>
         ) : (
-          <div className="flex flex-row gap-6 pr-4">
+          <div className="flex flex-row gap-6 pr-10">
             <Link
               href="/admin"
               className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
@@ -157,8 +167,7 @@ const Navbar = () => {
               width="30"
               alt="shopping bag"
             ></Image>
-            <Link href="/post">Post</Link>
-
+                 
             <Link
               href="/account"
               className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]"
@@ -169,6 +178,16 @@ const Navbar = () => {
                 layout="fill"
                 alt="user"
               ></Image>
+            </Link>
+            <Link 
+             href="/listings"
+             className="relative hidden md:block min-h-[25px] max-h-[25px] min-w-[25px] max-w-[25px]">
+            <Image
+                className="hidden md:block cursor-pointer"
+                src="/plus-square-light.svg"
+                layout="fill"
+                alt="user"
+              ></Image>  
             </Link>
             <Image
               onClick={toggleDarkMode}

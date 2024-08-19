@@ -55,6 +55,7 @@ async function registerServerAction(state: any, formData: FormData): Promise<Aut
     username: registerBody.data.username,
     location: registerBody.data.location,
     password: registerBody.data.password,
+    pfp: ""
   };
 
   setCookie(userId);

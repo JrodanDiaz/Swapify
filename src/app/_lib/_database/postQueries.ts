@@ -28,8 +28,8 @@ import { QueryResult } from "pg";
   export const postListing = async (listing: Listing): Promise<ServerResponse> => {
 
     const array = [listing.imageOne, listing.imageTwo, listing.imageThree] 
-    const imagesArray = array.filter((item) => item !== null)
-    console.log(imagesArray);
+    const imagesArray = array.filter((item) => item !== "/pfp.png")
+    console.log(imagesArray[2]);
     console.log("==================================================================");
     
     try{

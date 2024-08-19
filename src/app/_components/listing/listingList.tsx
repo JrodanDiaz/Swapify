@@ -19,8 +19,9 @@ export default async function ListingList() {
             return (
                 <div>
                     <Image src={object.images[0]} alt="imageOne" width={250} height={250}/>
-                    {/* <Image src={object.imageOne} alt="imageTwo" width={250} height={250}/> */}
-                    {/* <Image src={object.imageOne} alt="imageThree" width={250} height={250}/> */}
+                    { object.images.length > 1 && <Image src={object.images[1]} alt="imageOne" width={250} height={250}/> }
+                    { object.images.length > 2 && <Image src={object.images[2]} alt="imageOne" width={250} height={250}/> }
+                    <p>{object.size}</p>
                 </div>
             )
         })}

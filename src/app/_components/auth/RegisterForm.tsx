@@ -148,22 +148,40 @@ const RegisterForm = ({
               ))}
             </div>
             <div className="animate-fadeIn w-full mt-2">
-              <button
-                type={inputsAreValid() ? "submit" : "button"}
-                className={`${
-                  inputsAreValid()
-                    ? "bg-main-lightblack text-white transition-colors duration-400"
-                    : "bg-neutral-200 text-black text-opacity-20  cursor-not-allowed hover:bg-neutral-300 transition-colors duration-400"
-                } border-black border-[1px] px-4 py-2 rounded-sm w-full`}
-              >
-                {formData.button}
-              </button>
+              <SubmitButton
+                inputsAreValid={inputsAreValid}
+                buttonText={formData.button}
+              />
             </div>
           </form>
           {footer}
         </div>
       </div>
     </>
+  );
+};
+
+const SubmitButton = ({
+  inputsAreValid,
+  buttonText,
+}: {
+  inputsAreValid: () => boolean;
+  buttonText: string;
+}) => {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className={`${
+        inputsAreValid() && !pending
+          ? "bg-main-lightblack text-white transition-colors duration-400"
+          : "bg-neutral-200 text-black text-opacity-20  cursor-not-allowed hover:bg-neutral-300 transition-colors duration-400"
+      } border-black border-[1px] px-4 py-2 rounded-sm w-full`}
+    >
+      {buttonText}
+    </button>
   );
 };
 

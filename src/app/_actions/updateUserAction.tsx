@@ -12,6 +12,7 @@ async function updateUserAction(state: any, formData: FormData): Promise<AuthRes
     username: formData.get("username") as string,
     location: formData.get("location") as string,
     password: formData.get("password") as string,
+    pfp: formData.get("pfp") as string,
   });
 
   if (!userBody.success) {
@@ -25,7 +26,7 @@ async function updateUserAction(state: any, formData: FormData): Promise<AuthRes
     return { success: false, message: "Username or Email Already Taken", user: undefined };
   }
 
-  const updateUserResult = await updateUser(userBody.data, userBody.data.id);
+  const updateUserResult = await updateUser(userBody.data);
   if(!updateUserResult.success) return { success: false, message: "Internal Server Error", user: undefined }
   
   return { success: true, message: "Google where you at????", user: userBody.data };

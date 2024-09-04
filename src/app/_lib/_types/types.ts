@@ -33,8 +33,7 @@ export type ServerResponse = {
 };
 
 export type User = z.infer<typeof userBodySchema> | undefined
-
-export type RealUser = z.infer<typeof userBodySchema>
+export type UserBody = z.infer<typeof userBodySchema>
 
 export type AuthResponse = {
   success: boolean;
@@ -57,4 +56,26 @@ export type FormMode = "register" | "login" | "admin";
 export type AsyncFunctionResult<T extends {}> = {
     success: boolean;
 } & T;
+
+export type Listing = {
+  id: string, 
+  title: string,
+  size: string,
+  description: string,
+  swap: string, 
+  condition: string, 
+  imageOne: string, 
+  imageTwo: string | null, 
+  imageThree: string | null 
+}
+
+export type ListingDB = {
+  id: string, 
+  title: string,
+  size: string,
+  description: string,
+  swap: string, 
+  condition: string, 
+  images: string[]
+}
 

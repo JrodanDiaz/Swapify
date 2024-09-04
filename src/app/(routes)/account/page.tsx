@@ -45,8 +45,8 @@ export default function AccountPage() {
   }, [userContext]);
 
   const defaultImage = "/pfp.png";
-  const [selectedImage, setSelectedImage] = useState<string | null>(
-    defaultImage
+  const [selectedImage, setSelectedImage] = useState<string>(
+    userContext.pfp || defaultImage
   );
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -128,11 +128,18 @@ export default function AccountPage() {
               onChange={onInputChange}
               className="border-black border-[1px] px-3 py-2 mb-2"
             />
+            <input
+              type="text"
+              name="pfp"
+              value={selectedImage !== defaultImage ? selectedImage : ""}
+              readOnly={true}
+              hidden={true}
+            />
             <button
-              className=" px-4 py-2 bg-black text-white rounded-full"
+              className="px-4 py-2 bg-black text-white rounded-full"
               type="submit"
             >
-              Gayyyyyyyy
+              Update Profile
             </button>
           </form>
           <div className="flex flex-col items-center">
@@ -163,27 +170,6 @@ export default function AccountPage() {
             </button>
           </div>
         </div>
-
-        {/* <div className="flex flex-col">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            className="border-black border-[1px] mb-2"
-            value={username}
-            onChange={onInputChange}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={onInputChange}
-            className="border-black border-[1px] mb-2"
-          />
-        </div> */}
       </div>
     </>
   );
